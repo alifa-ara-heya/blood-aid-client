@@ -8,7 +8,7 @@ const Footer = () => {
     return (
         <footer className="bg-rose-700 text-white py-8 md:py-10 lg:py-14">
             <div className="w-3/4  mx-auto">
-                <div className="flex flex-col md:flex-row gap-8">
+                <div className="flex flex-col md:flex-row gap-8 items-stretch">
                     {/* Logo Section */}
                     <div className="space-y-2 md:w-1/3 w-full">
                         <img src={logo} alt="Blood Aid Logo" className="w-20" />
@@ -65,7 +65,7 @@ const Footer = () => {
                     </div>
                 </div>
                 {/* Footer Bottom */}
-                <div className=" pt-4 text-center">
+                <div className="pt-4 text-center">
                     <span className="divider"></span>
                     <p className="text-sm">
                         &copy; {new Date().getFullYear()} - Blood Aid. All rights reserved. Built with 💛 by Alifa Ara Heya
