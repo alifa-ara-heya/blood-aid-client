@@ -16,10 +16,6 @@ const router = createBrowserRouter([
                 path: '/',
                 element: <Home />
             },
-            {
-                path: '*',
-                element: <NotFound404 />
-            }
         ]
     },
     {
@@ -29,6 +25,11 @@ const router = createBrowserRouter([
     {
         path: 'signUp',
         element: <SignUp />
+    },
+    // Global Catch-All Route (For unmatched top-level paths)
+    {
+        path: "*",
+        element: <NotFound404 />
     }
 ]);
 

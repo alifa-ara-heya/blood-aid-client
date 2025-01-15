@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import donateImg from '../assets/Blood_donation-removebg.png'
+import donateImg from '../assets/Blood-donation-illus-color-removebg-preview.png'
 import logo from '../assets/icons8-blood-100.png'
 import bg from '../assets/fabric_1.webp'
 import { FaLongArrowAltLeft } from 'react-icons/fa';
@@ -22,7 +22,7 @@ const SignUp = () => {
                 <h2 className='md:text-2xl text-xl font-bold text-rose-700'>Blood Aid</h2>
             </Link>
 
-            <div className="flex flex-col-reverse xl:flex-row justify-center items-center md:min-h-screen pb-10 xl:p-16 pt-10" >
+            <div className="flex flex-col-reverse xl:flex-row justify-center items-center md:min-h-screen pb-10 xl:p-16 pt-10 xl:pb-20 container mx-auto" >
                 <div>
                     <img src={donateImg} alt="" className=' w-[90%] mx-auto' />
                 </div>
