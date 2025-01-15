@@ -3,12 +3,41 @@ import { Link } from 'react-router-dom';
 import donateImg from '../assets/Blood-donation-illus-color-removebg-preview.png'
 import logo from '../assets/icons8-blood-100.png'
 import bg from '../assets/fabric_1.webp'
-import { FaLongArrowAltLeft } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaLongArrowAltLeft } from 'react-icons/fa';
 import SignUpFooter from '../components/SignUpFooter/SignUpFooter';
-const SignUp = () => {
-    const handleRegister = () => {
+import { useForm } from 'react-hook-form';
+import useAuth from '../hooks/UseAuth';
+import { useState } from 'react';
 
+
+const SignUp = () => {
+    const { createUser, updateUserProfile } = useAuth();
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        reset,
+        formState: { errors },
+    } = useForm();
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+
+    const onSubmit = async (data) => {
+        console.log(data);
+
+        /* try {
+            
+
+            //user registration
+            const result = await createUser()
+        } catch (error) {
+            console.log(error);
+        } */
     }
+
     return (
         <div style={{ backgroundImage: `url(${bg})` }}>
             <Helmet>
@@ -32,9 +61,9 @@ const SignUp = () => {
                     <div className="text-center">
                         <img src={logo} alt="logo" className="mx-auto my-3" />
                         <h1 className="text-xl md:text-3xl font-medium capitalize">Register to join as a donor</h1>
-
                     </div>
-                    <form onSubmit={handleRegister} className="card-body px-10 xl:px:16">
+
+                    <form onSubmit={handleSubmit(onSubmit)} className="card-body px-10 xl:px:16">
 
                         {/* form-row-1 */}
                         <div className="flex flex-col md:gap-5 md:flex-row justify-center items-center">
@@ -44,19 +73,26 @@ const SignUp = () => {
                                     <span className="label-text">Name</span>
                                 </label>
                                 <input type="text" placeholder="Your Name"
-                                    name="name"
-                                    className="input input-bordered " required />
+                                    className="input input-bordered"
+                                    {...register('name', { required: true })} />
+
+                                {errors.name && <span className='text-red-500 text-sm'>Name is Required</span>}
                             </div>
+
                             {/* email */}
                             <div className="form-control w-full md:w-1/2">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
                                 <input type="email"
-                                    name="email" placeholder="email" className="input input-bordered " required />
+                                    placeholder="email" className="input input-bordered"
+                                    {...register('email', { required: true })}
+                                />
+                                {errors.email && <span className='text-red-500 text-sm'>Email is required.</span>}
                             </div>
-
                         </div>
+
+
                         {/* form-row-2 */}
                         <div className="flex md:gap-5 flex-col md:flex-row justify-center items-center">
                             {/* Blood Group*/}
@@ -65,7 +101,9 @@ const SignUp = () => {
                                     <span className="label-text">Blood Group</span>
                                 </label>
 
-                                <select name="type" className="select select-bordered text-gray-400 text-base capitalize" required defaultValue=''>
+                                <select name="type" className="select select-bordered text-gray-400 text-base capitalize"
+                                    defaultValue={''}
+                                    {...register('bloodGroup', { required: true })}>
                                     <option value='' disabled>Choose from below</option>
                                     <option value='A+'>A+</option>
                                     <option value='A-'>A-</option>
@@ -76,6 +114,7 @@ const SignUp = () => {
                                     <option value='O+'>O+</option>
                                     <option value='O-'>O-</option>
                                 </select>
+                                {errors.bloodGroup && <span className='text-red-500 text-sm'>Blood Group is required.</span>}
                             </div>
 
                             {/* photo upload */}
@@ -83,7 +122,7 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Upload Image</span>
                                 </label>
-                                <input type="text" name="photo" placeholder="Photo URL" className="input input-bordered " required />
+                                <input type="text" name="photo" placeholder="Photo URL" className="input input-bordered " />
                             </div>
                         </div>
 
@@ -94,7 +133,9 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">District</span>
                                 </label>
-                                <select name="type" className="select select-bordered text-gray-400 text-base capitalize" required defaultValue=''>
+                                <select name="type" className="select select-bordered text-gray-400 text-base capitalize"
+                                    {...register('district', { required: true })}
+                                    defaultValue=''>
                                     <option value='' disabled>Choose from below</option>
                                     <option value='A+'>A+</option>
                                     <option value='A-'>A-</option>
@@ -112,7 +153,8 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Upazila</span>
                                 </label>
-                                <select name="type" className="select select-bordered text-gray-400 text-base capitalize" required defaultValue=''>
+                                <select name="type" className="select select-bordered text-gray-400 text-base capitalize" required defaultValue=''
+                                    {...register('upazila', { required: true })}>
                                     <option value='' disabled>Choose from below</option>
                                     <option value='A+'>A+</option>
                                     <option value='A-'>A-</option>
@@ -124,11 +166,9 @@ const SignUp = () => {
                                     <option value='O-'>O-</option>
                                 </select>
                             </div>
-
-
                         </div>
 
-
+                        {/* form row-4 */}
                         <div className='flex flex-col md:gap-5 md:flex-row justify-center items-center'>
                             {/* password */}
                             <div className="form-control relative w-full md:w-1/2">
@@ -136,21 +176,30 @@ const SignUp = () => {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input
-                                    // type={showPassword ? 'text' : 'password'}
-                                    name='password'
+                                    type={showPassword ? 'text' : 'password'}
                                     placeholder="password"
-                                    className="input input-bordered" required />
+                                    className="input input-bordered"
+                                    {...register('password', {
+                                        required: "Password is required",
+                                        pattern: {
+                                            value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
+                                            message: "Password must include 8-20 characters, with uppercase, lowercase, number, and special character."
+                                        }
+                                    })} />
+                                {errors.password?.type === 'required' && (
+                                    <span className="text-red-400 text-sm">{errors.password.message}</span>
+                                )}
+                                {errors.password?.type === 'pattern' && (
+                                    <span className="text-red-400 text-sm">{errors.password.message}</span>
+                                )}
                                 <button
                                     type="button"
-                                    // onClick={() => setShowPassword(!showPassword)}
+                                    onClick={() => setShowPassword(!showPassword)}
                                     className='btn btn-xs absolute right-2 top-12'>
-                                    {/* {
+                                    {
                                         showPassword ? <FaEyeSlash /> : <FaEye />
-                                    } */}
+                                    }
                                 </button>
-                                {/* {
-                                    errorMsg && <p className='text-red-600 text-xs mt-6'>{errorMsg}</p>
-                                } */}
                             </div>
 
 
@@ -160,21 +209,32 @@ const SignUp = () => {
                                     <span className="label-text">Confirm Password</span>
                                 </label>
                                 <input
-                                    // type={showPassword ? 'text' : 'password'}
-                                    name='password'
-                                    placeholder="password"
-                                    className="input input-bordered" required />
+                                    type={showConfirmPassword ? 'text' : 'password'} placeholder="password"
+                                    className="input input-bordered"
+                                    {...register('confirmPassword', {
+                                        required: 'Please confirm your password.',
+                                        validate: (value) => {
+                                            return value === watch('password') || 'Passwords do not match'
+                                        }
+                                    })} />
+                                {errors.confirmPassword?.type === 'required' && (
+                                    <span className="text-red-400 text-sm">
+                                        {errors.confirmPassword.message}
+                                    </span>
+                                )}
+                                {errors.confirmPassword?.type === "validate" && (
+                                    <span className="text-red-400 text-sm">
+                                        {errors.confirmPassword.message}
+                                    </span>
+                                )}
                                 <button
                                     type="button"
-                                    // onClick={() => setShowPassword(!showPassword)}
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                     className='btn btn-xs absolute right-2 top-12'>
-                                    {/* {
-                                        showPassword ? <FaEyeSlash /> : <FaEye />
-                                    } */}
+                                    {
+                                        showConfirmPassword ? <FaEyeSlash /> : <FaEye />
+                                    }
                                 </button>
-                                {/* {
-                                    errorMsg && <p className='text-red-600 text-xs mt-6'>{errorMsg}</p>
-                                } */}
                             </div>
                         </div>
 

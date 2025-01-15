@@ -1,0 +1,74 @@
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { createContext, useEffect, useState } from "react";
+import { app } from './../firebase/firebase.config';
+
+export const AuthContext = createContext(null);
+const auth = getAuth(app);
+
+
+const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    //creating user
+    const createUser = (email, password) => {
+        setLoading(true)
+        return createUserWithEmailAndPassword(auth, email, password)
+    }
+
+    //sign in existing user
+    const signIn = (email, password) => {
+        setLoading(true)
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    //log out user
+    const logOut = () => {
+        setLoading(true)
+        return signOut(auth)
+    }
+
+    //update profile to display name and image
+    const updateUserProfile = (name, photo) => {
+        return updateProfile(auth.currentUser, {
+            displayName: name,
+            photoURL: photo,
+        })
+    }
+
+    const authInfo = {
+        user,
+        loading,
+        createUser,
+        signIn,
+        logOut,
+        updateUserProfile
+    }
+
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, currentUser => {
+            setUser(currentUser) // Update the user state
+            setLoading(false)
+            if (currentUser) {
+                const userInfo = { email: currentUser.email }
+
+                console.log(userInfo); // Example: { email: "user@example.com" }
+            } else {
+                setLoading(false) // Stop showing a loading spinner
+            }
+            console.log('current user email', currentUser);
+        })
+
+        return () => {
+            return unSubscribe(); //cleanUp listener
+        }
+    })
+
+    return (
+        <AuthContext.Provider value={authInfo}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
+
+export default AuthProvider;
