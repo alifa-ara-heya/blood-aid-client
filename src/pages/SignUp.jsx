@@ -10,9 +10,13 @@ import useAuth from '../hooks/UseAuth';
 import { useState } from 'react';
 import LoadingSpinner from '../components/Shared/LoadingSpinner/LoadingSpinner';
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import useAxiosPublic from '../hooks/useAxiosPublic';
+import Swal from 'sweetalert2';
 
 
 const SignUp = () => {
+    const axiosPublic = useAxiosPublic();
     const { createUser, updateUserProfile } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -66,24 +70,60 @@ const SignUp = () => {
         console.log(data);
 
         try {
-            //user registration
-            // const result = await createUser(data.email, data.password)
-            // const user = result.user;
-            // console.log('Sign Up User', user);
+            //1. prepare formData for imageBB
+            const formData = new FormData();
+            formData.append('image', data.photo[0])
 
-            //save userName and profile photo
-            // await updateUserProfile(data.name, data.photo)
+            //2. upload imageData to imageBb
+            const imageResponse = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`, formData)
+            const imageURL = imageResponse.data.data.url;
+            // console.log(imageResponse.data.data.url);
+
+            //3. user registration
+            const result = await createUser(data.email, data.password)
+            const user = result.user;
+            console.log('Sign Up User', user);
+
+            //4. save userName and profile photo
+            await updateUserProfile(data.name, imageURL)
 
             //storing the district and upazila name with it's id
             const selectedDistrict = districtsData.find(district => district.id === data.district)
             const selectedDistrictName = selectedDistrict.name
-            console.log(selectedDistrictName);
+            // console.log(selectedDistrictName);
 
             const selectedUpazila = upazilasData.find(upazila => upazila.id === data.upazila)
             const selectedUpazilaName = selectedUpazila.name
-            console.log(selectedUpazilaName);
+            // console.log(selectedUpazilaName);
+
+            //what data will be sent to the database
+            const userInfo = {
+                name: data.name,
+                email: data.email,
+                image: imageURL,
+                bloodGroup: data.bloodGroup,
+                district: selectedDistrictName,
+                upazila: selectedUpazilaName
+            }
+
+            // 5. save user info to the database
+            const response = await axiosPublic.post('/users', userInfo)
+            console.log(response);
+            // show success message
+            await Swal.fire({
+                title: "Success",
+                text: "Successfully Registered",
+                icon: "success"
+            });
+
+
         } catch (error) {
             console.log(error);
+            await Swal.fire({
+                title: "Error",
+                text: error.message || "Failed to register. Please try again.",
+                icon: "error",
+            });
         }
     }
 
@@ -174,7 +214,7 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Upload Image</span>
                                 </label>
-                                <input type="file" className="file-input  file-input-primary border-none pe-0 "
+                                <input type="file" className="file-input  file-input-primary border-gray-300 pe-0 "
                                     {...register('photo', { required: true })}
                                 />
                             </div>
