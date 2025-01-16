@@ -10,11 +10,20 @@ export default {
     extend: {
       fontFamily: {
         openSans: 'Open Sans, serif'
-      }
+      },
     },
   },
-  plugins: [
-    daisyui,
-  ],
+  plugins: [daisyui,],
+  daisyui: {
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["light"],
+          primary: "#C71A42",
+          secondary: "#FCE0A2",
+        },
+      },
+    ],
+  },
 }
 

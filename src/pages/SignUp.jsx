@@ -12,7 +12,6 @@ import LoadingSpinner from '../components/Shared/LoadingSpinner/LoadingSpinner';
 import { useQuery } from '@tanstack/react-query';
 
 
-
 const SignUp = () => {
     const { createUser, updateUserProfile } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
@@ -57,10 +56,10 @@ const SignUp = () => {
     const upazilasData = upazilas[2]?.data || []
     // console.log(upazilasData.length);
 
-    const selectedDistrict = watch('district');
+    const selectedDistrictId = watch('district');
     // console.log(selectedDistrict);
 
-    const filteredUpazilas = upazilasData.filter(upazila => upazila.district_id === selectedDistrict)
+    const filteredUpazilas = upazilasData.filter(upazila => upazila.district_id === selectedDistrictId)
 
 
     const onSubmit = async (data) => {
@@ -74,6 +73,15 @@ const SignUp = () => {
 
             //save userName and profile photo
             // await updateUserProfile(data.name, data.photo)
+
+            //storing the district and upazila name with it's id
+            const selectedDistrict = districtsData.find(district => district.id === data.district)
+            const selectedDistrictName = selectedDistrict.name
+            console.log(selectedDistrictName);
+
+            const selectedUpazila = upazilasData.find(upazila => upazila.id === data.upazila)
+            const selectedUpazilaName = selectedUpazila.name
+            console.log(selectedUpazilaName);
         } catch (error) {
             console.log(error);
         }
@@ -166,8 +174,9 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Upload Image</span>
                                 </label>
-                                <input type="text" name="photo" placeholder="Photo URL" className="input input-bordered "
-                                    {...register('photo', { required: true })} />
+                                <input type="file" className="file-input  file-input-primary border-none pe-0 "
+                                    {...register('photo', { required: true })}
+                                />
                             </div>
                         </div>
 
