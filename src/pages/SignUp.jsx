@@ -8,11 +8,15 @@ import SignUpFooter from '../components/SignUpFooter/SignUpFooter';
 import { useForm } from 'react-hook-form';
 import useAuth from '../hooks/UseAuth';
 import { useState } from 'react';
+import LoadingSpinner from '../components/Shared/LoadingSpinner/LoadingSpinner';
+import { useQuery } from '@tanstack/react-query';
+
 
 
 const SignUp = () => {
     const { createUser, updateUserProfile } = useAuth();
-
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const {
         register,
         handleSubmit,
@@ -21,22 +25,61 @@ const SignUp = () => {
         formState: { errors },
     } = useForm();
 
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    // Fetch districts
+    const { data: districts = [], isLoading: isDistrictsLoading } = useQuery({
+        queryKey: ['districts'],
+        queryFn: async () => {
+            const res = await fetch('/districts.json');
+            if (!res.ok) {
+                throw new Error('Failed to fetch districts');
+            }
+            return res.json()
+        }
+    })
+
+    // Fetch upazilas
+    const { data: upazilas = [], isLoading: isUpazilasLoading } = useQuery({
+        queryKey: ['upazilas'],
+        queryFn: async () => {
+            const res = await fetch('/upazilas.json');
+            if (!res.ok) {
+                throw new Error('Failed to fetch upazilas');
+            }
+            return res.json();
+        }
+    });
+
+    if (isDistrictsLoading || isUpazilasLoading) return <LoadingSpinner />
+
+    const districtsData = districts[2]?.data || []
+    // console.log(districtsData.length);
+
+    const upazilasData = upazilas[2]?.data || []
+    // console.log(upazilasData.length);
+
+    const selectedDistrict = watch('district');
+    // console.log(selectedDistrict);
+
+    const filteredUpazilas = upazilasData.filter(upazila => upazila.district_id === selectedDistrict)
 
 
     const onSubmit = async (data) => {
         console.log(data);
 
-        /* try {
-            
-
+        try {
             //user registration
-            const result = await createUser()
+            // const result = await createUser(data.email, data.password)
+            // const user = result.user;
+            // console.log('Sign Up User', user);
+
+            //save userName and profile photo
+            // await updateUserProfile(data.name, data.photo)
         } catch (error) {
             console.log(error);
-        } */
+        }
     }
+
+
 
     return (
         <div style={{ backgroundImage: `url(${bg})` }}>
@@ -47,6 +90,7 @@ const SignUp = () => {
 
             <Link to='/' className=" border-b pb-4 flex justify-start items-center gap-2 btn active:outline-none focus:outline-none focus:border-none">
                 <FaLongArrowAltLeft />
+
                 <img src={logo} alt="" className="w-10" />
                 <h2 className='md:text-2xl text-xl font-bold text-rose-700'>Blood Aid</h2>
             </Link>
@@ -122,30 +166,31 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Upload Image</span>
                                 </label>
-                                <input type="text" name="photo" placeholder="Photo URL" className="input input-bordered " />
+                                <input type="text" name="photo" placeholder="Photo URL" className="input input-bordered "
+                                    {...register('photo', { required: true })} />
                             </div>
                         </div>
 
                         {/* form-row-3 */}
                         <div className="flex flex-col md:gap-5 md:flex-row justify-center items-center">
-                            {/* District */}
+                            {/* Districts */}
                             <div className="form-control w-full md:w-1/2">
                                 <label className="label">
                                     <span className="label-text">District</span>
                                 </label>
-                                <select name="type" className="select select-bordered text-gray-400 text-base capitalize"
-                                    {...register('district', { required: true })}
+                                <select className="select select-bordered text-gray-400 text-base capitalize"
+                                    {...register('district', { required: "District is required" })}
                                     defaultValue=''>
                                     <option value='' disabled>Choose from below</option>
-                                    <option value='A+'>A+</option>
-                                    <option value='A-'>A-</option>
-                                    <option value='B+'>B+</option>
-                                    <option value='B-'>B-</option>
-                                    <option value='AB+'>AB+</option>
-                                    <option value='AB-'>AB-</option>
-                                    <option value='O+'>O+</option>
-                                    <option value='O-'>O-</option>
+                                    {
+                                        districtsData.map(district => <option key={district.id} value={district.id}>
+                                            {district.name}
+                                        </option>)
+                                    }
                                 </select>
+                                {errors.district && (
+                                    <span className="text-red-400 text-sm">{errors.district.message}</span>
+                                )}
                             </div>
 
                             {/* upazila */}
@@ -154,17 +199,15 @@ const SignUp = () => {
                                     <span className="label-text">Upazila</span>
                                 </label>
                                 <select name="type" className="select select-bordered text-gray-400 text-base capitalize" required defaultValue=''
-                                    {...register('upazila', { required: true })}>
+                                    {...register('upazila', { required: "Upazila is required" })}>
                                     <option value='' disabled>Choose from below</option>
-                                    <option value='A+'>A+</option>
-                                    <option value='A-'>A-</option>
-                                    <option value='B+'>B+</option>
-                                    <option value='B-'>B-</option>
-                                    <option value='AB+'>AB+</option>
-                                    <option value='AB-'>AB-</option>
-                                    <option value='O+'>O+</option>
-                                    <option value='O-'>O-</option>
+                                    {filteredUpazilas.map(upazila => <option key={upazila.id} value={upazila.id}>{upazila.name}</option>)}
                                 </select>
+                                {errors.upazila && (
+                                    <span className="text-red-400 text-sm">
+                                        {errors.upazila.message}
+                                    </span>
+                                )}
                             </div>
                         </div>
 
