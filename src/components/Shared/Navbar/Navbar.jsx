@@ -6,14 +6,41 @@ import logo from '../../../assets/icons8-blood-100.png'
 import { Link, NavLink } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import donateBloodImg from '../../../assets/donate-blood-removebg-preview.png'
+import useAuth from "../../../hooks/UseAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+    const { user, logOut } = useAuth();
+    const name = user?.displayName;
+    const image = user?.photoURL;
+
     const getNavLinkActiveClass = ({ isActive }) => `${isActive ? 'bg-rose-700 text-white hover:bg-rose-600 focus:bg-rose-700 focus:text-white' : ''}`
+
     const navOptions = <>
         <li className=""><NavLink to='/' className={getNavLinkActiveClass}>Home</NavLink></li>
         <li className=""><NavLink to='/donation-requests' className={getNavLinkActiveClass}>Donation Requests</NavLink></li>
-        <li className=""><NavLink to='/signUp' className={getNavLinkActiveClass}>Sign Up</NavLink></li>
+        {
+            !user && <li className=""><NavLink to='/login' className={getNavLinkActiveClass}>Log In</NavLink></li>
+        }
     </>
+
+    const handleLogOut = async () => {
+        try {
+            await logOut();
+            await Swal.fire({
+                title: 'Success',
+                text: 'Successfully Logged Out',
+                icon: 'success'
+            })
+        } catch (err) {
+            console.log('Logout failed', err);
+            await Swal.fire({
+                title: 'Error',
+                text: err.message || "Failed to log out. Please try again.",
+                icon: "error",
+            })
+        }
+    }
 
     return (
         <div className="navbar bg-rose-700">
@@ -63,27 +90,33 @@ const Navbar = () => {
 
             {/* navbar end */}
             <div className="navbar-end">
-                <div className="dropdown dropdown-end">
-                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img
-                                alt="Tailwind CSS Navbar component"
-                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                {
+                    user && <div className="dropdown dropdown-end">
+                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                            <div className="w-10 rounded-full">
+                                <img
+                                    alt="user image"
+                                    src={image}
+                                    title={name} />
+                            </div>
                         </div>
+                        <ul
+                            tabIndex={0}
+                            className="menu dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            <li>
+                                <Link to='/dashboard'>
+                                    <RxDashboard size={18} /> Dashboard
+
+                                </Link>
+                            </li>
+
+                            <li>
+                                <button onClick={handleLogOut}>
+                                    <AiOutlineLogout size={18} />Logout</button>
+                            </li>
+                        </ul>
                     </div>
-                    <ul
-                        tabIndex={0}
-                        className="menu dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                        <li>
-                            <Link to='/dashboard'>
-                                <RxDashboard size={18} /> Dashboard
-
-                            </Link>
-                        </li>
-
-                        <li><a><AiOutlineLogout size={18} />Logout</a></li>
-                    </ul>
-                </div>
+                }
             </div>
         </div>
     );
