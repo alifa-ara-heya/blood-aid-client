@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     return (
@@ -8,6 +9,7 @@ const Sidebar = () => {
                 <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">
                     Open drawer
                 </label>
+                <Link to='/dashboard/profile'>Profile</Link>
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
