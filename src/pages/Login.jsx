@@ -6,7 +6,7 @@ import logo from '../assets/icons8-blood-100.png';
 import donateImg from '../assets/Blood-donation-illus-color-removebg-preview.png'
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import SignUpFooter from '../components/SignUpFooter/SignUpFooter';
+import ShortFooter from '../components/ShortFooter/ShortFooter';
 import useAuth from '../hooks/UseAuth';
 import Swal from 'sweetalert2';
 
@@ -133,7 +133,7 @@ const Login = () => {
 
 
             </div>
-            <SignUpFooter />
+            <ShortFooter />
         </div>
 
 

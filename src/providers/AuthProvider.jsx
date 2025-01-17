@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { app } from './../firebase/firebase.config';
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -9,6 +10,7 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const axiosPublic = useAxiosPublic();
 
     //creating user
     const createUser = (email, password) => {
@@ -48,12 +50,25 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser) // Update the user state
-            setLoading(false)
             if (currentUser) {
                 const userInfo = { email: currentUser.email }
 
                 console.log(userInfo); // Example: { email: "user@example.com" }
+
+                // get token and store in client side
+
+                axiosPublic.post('/jwt', userInfo)
+                    .then(res => {
+                        if (res.data.token) {
+                            localStorage.setItem('access-token', res.data.token)
+                            console.log('Token saved to local storage', res.data.token);
+                            setLoading(false)
+                        }
+                    })
+
             } else {
+                //remove token
+                localStorage.removeItem('access-token')
                 setLoading(false) // Stop showing a loading spinner
             }
             console.log('current user email', currentUser);

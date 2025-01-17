@@ -1,5 +1,5 @@
 
-const SignUpFooter = () => {
+const ShortFooter = () => {
     return (
         <footer className="bg-rose-700 text-white py-6">
             <div className="container mx-auto px-4 text-center">
@@ -14,4 +14,4 @@ const SignUpFooter = () => {
     );
 };
 
-export default SignUpFooter;
+export default ShortFooter;

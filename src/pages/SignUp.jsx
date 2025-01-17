@@ -4,7 +4,7 @@ import donateImg from '../assets/Blood-donation-illus-color-removebg-preview.png
 import logo from '../assets/icons8-blood-100.png'
 import bg from '../assets/fabric_1.webp'
 import { FaEye, FaEyeSlash, FaLongArrowAltLeft } from 'react-icons/fa';
-import SignUpFooter from '../components/SignUpFooter/SignUpFooter';
+import ShortFooter from '../components/ShortFooter/ShortFooter';
 import { useForm } from 'react-hook-form';
 import useAuth from '../hooks/UseAuth';
 import { useState } from 'react';
@@ -341,7 +341,7 @@ const SignUp = () => {
 
                 </div>
             </div>
-            <SignUpFooter />
+            <ShortFooter />
         </div>
     );
 };
