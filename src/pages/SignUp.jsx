@@ -274,8 +274,8 @@ const SignUp = () => {
                                     {...register('password', {
                                         required: "Password is required",
                                         pattern: {
-                                            value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
-                                            message: "Password must include 8-20 characters, with uppercase, lowercase, number, and special character."
+                                            value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$/,
+                                            message: "Password must include 6-20 characters, with uppercase, lowercase, number, and special character."
                                         }
                                     })} />
                                 {errors.password?.type === 'required' && (
