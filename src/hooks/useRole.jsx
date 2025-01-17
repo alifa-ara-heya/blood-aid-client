@@ -13,14 +13,14 @@ const useRole = () => {
 
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/users/role/${user?.email}`)
-            console.log('Fetched Role:', data.role);
+            // console.log('Fetched Role:', data.role);
             // console.log('API Response:', data); // Debugging
             return data.role
         }
 
     })
 
-    console.log('role', role);
+    // console.log('role', role);
 
 
     return [role, isLoading]

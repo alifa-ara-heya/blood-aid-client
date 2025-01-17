@@ -5,30 +5,27 @@ import useRole from "../../hooks/useRole";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Profile = () => {
     const { user } = useAuth();
     const [role, isLoading] = useRole();
     const axiosSecure = useAxiosSecure();
-    const [isEditable, setIsEditable] = useState(false); // Manage editable state
+    const [isEditable, setIsEditable] = useState(false);
 
-
-    const { data: userData = {} } = useQuery({
+    const { data: userData = {}, isLoading: isLoadingUserData } = useQuery({
         queryKey: ['user', user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`user/${user?.email}`)
-            console.log(data);
-
-            return data
+            const { data } = await axiosSecure.get(`user/${user?.email}`);
+            return data;
         }
-    })
-
+    });
 
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm({
         defaultValues: {
@@ -40,30 +37,32 @@ const Profile = () => {
         },
     });
 
+    useEffect(() => {
+        if (!isEditable) {
+            reset(userData);
+        }
+    }, [isEditable, userData, reset]);
+
     const toggleEditMode = () => {
         setIsEditable((prevState) => !prevState);
-        console.log(isEditable);
     };
-
-
 
     const onSubmit = (data) => {
-        console.log('Updated Data:', data);
         // Perform API call to save the updated data
-        toggleEditMode(); // Exit edit mode after saving
+        console.log(data);
+
+        // toggleEditMode(); // Exit edit mode after saving
     };
 
-    // const { name, image, district, upazila, bloodGroup } = userData;
+    if (isLoading || isLoadingUserData) return <LoadingSpinner />;
 
-    if (isLoading) return <LoadingSpinner />
     return (
         <div>
             <Helmet>
                 <title>Profile</title>
             </Helmet>
-            <h2>Welcome from profile page</h2>
+            <h2>Welcome from profile page: {userData.name} </h2>
             <h2>Role: {role}</h2>
-            {/* <p>Blood group: {bloodGroup}</p> */}
             <div className="p-4 border rounded-md">
                 <h2 className="text-lg font-bold mb-4">User Profile</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -128,9 +127,10 @@ const Profile = () => {
 
                     {/* Action Buttons */}
                     <div className="flex justify-end space-x-4">
-                        {isEditable ? (
+                        {/* {isEditable ? (
                             <button
-                                type="submit"
+                                type="button"
+                                onClick={toggleEditMode}
                                 className="px-4 py-2 bg-green-500 text-white rounded-md"
                             >
                                 Save
@@ -143,7 +143,21 @@ const Profile = () => {
                             >
                                 Edit
                             </button>
-                        )}
+                        )} */}
+                        <button
+                            type="button"
+                            onClick={toggleEditMode}
+                            className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                        >
+                            Edit
+                        </button>
+                        <button
+                            type="submit"
+                            disabled={!isEditable}
+                            className="px-4 py-2 btn rounded-md bg-green-500 text-white"
+                        >
+                            Submit
+                        </button>
                     </div>
                 </form>
             </div>
