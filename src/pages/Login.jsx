@@ -28,8 +28,8 @@ const Login = () => {
 
         try {
             const result = await signIn(data.email, data.password);
-            const user = result.user;
-            console.log('sign-in user', user);
+            // const user = result.user;
+            // console.log('sign-in user', user);
             await Swal.fire({
                 title: "Success",
                 text: "Successfully Logged In",

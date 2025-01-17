@@ -71,7 +71,7 @@ const AuthProvider = ({ children }) => {
                 localStorage.removeItem('access-token')
                 setLoading(false) // Stop showing a loading spinner
             }
-            console.log('current user email', currentUser);
+            // console.log('current user email', currentUser);
         })
 
         return () => {
