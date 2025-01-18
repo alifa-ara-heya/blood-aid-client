@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import useDistrictsAndUpazilas from "../../hooks/useDistrictsAndUpazilas";
 import Heading from "../../components/Shared/Heading";
+import { imageUpload } from "../../api/imageuploadUtils";
+import Swal from "sweetalert2";
 
 const Profile = () => {
     const methods = useForm();
@@ -31,6 +33,7 @@ const Profile = () => {
         setSelectedDistrictId(event.target.value);
         console.log('Selected District ID:', event.target.value);
     };
+
     const {
         register,
         handleSubmit,
@@ -48,6 +51,7 @@ const Profile = () => {
         },
     });
 
+    //fetching districts and upazilas
     const {
         districtsData,
         upazilasData,
@@ -55,17 +59,17 @@ const Profile = () => {
         isUpazilasLoading,
     } = useDistrictsAndUpazilas();
 
-    console.log(districtsData?.length);
-    console.log(upazilasData?.length);
-    console.log(districtsData);
+    // console.log(districtsData?.length);
+    // console.log(upazilasData?.length);
+    // console.log(districtsData);
 
 
     // const selectedDistrictId = watch('district');
 
     console.log(selectedDistrictId); //nothing consoles
-    useEffect(() => {
-        console.log('Selected District ID:', selectedDistrictId); // Logs dynamically when the district field changes
-    }, [selectedDistrictId]); // Re-run the effect whenever the district value changes
+    // useEffect(() => {
+    //     console.log('Selected District ID:', selectedDistrictId); // Logs dynamically when the district field changes
+    // }, [selectedDistrictId]); // Re-run the effect whenever the district value changes
 
     // Filter upazilas based on the selected district
     const filteredUpazilas = upazilasData.filter(upazila => upazila.district_id === selectedDistrictId)
@@ -79,11 +83,11 @@ const Profile = () => {
     const selectedDistrictName = selectedDistrict?.name || "";
 
     // console.log(filteredUpazilas);
-    console.log(selectedDistrictName);
-    console.log(userData.district);
+    console.log('selectedDistrictName:', selectedDistrictName);
+    console.log('user district:', userData.district);
     // console.log(userData.bloodGroup);
     // console.log(userData.image);
-    console.log(userData.upazila);
+    console.log('user upazila:', userData.upazila);
 
     useEffect(() => {
         if (!isEditable) {
@@ -95,18 +99,46 @@ const Profile = () => {
         setIsEditable((prevState) => !prevState);
     };
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+        const photoURL = await imageUpload(data.photo[0]);
+        // console.log(photoURL);
         // Perform API call to save the updated data
-        console.log(data);
+        // console.log(data);
 
         //storing the district and upazila name with it's id
         const selectedDistrict = districtsData.find(district => district.id === data.district)
         const selectedDistrictName = selectedDistrict.name
-        console.log(selectedDistrictName);
+        // console.log(selectedDistrictName);
 
         const selectedUpazila = upazilasData.find(upazila => upazila.id === data.upazila)
         const selectedUpazilaName = selectedUpazila?.name || '';
-        console.log(selectedUpazilaName);
+        // console.log(selectedUpazilaName);
+
+        const updatedData = {
+            name: data.name,
+            image: photoURL,
+            bloodGroup: data.bloodGroup,
+            district: selectedDistrictName,
+            upazila: selectedUpazilaName,
+        }
+
+        console.log(updatedData);
+
+        try {
+            const { data: updatedUserData } = await axiosSecure.put(`updateProfile/${user?.email}`, updatedData);
+            console.log(updatedUserData);
+            if (updatedUserData.modifiedCount > 0) {
+                Swal.fire({
+                    title: "Good job!",
+                    text: "You clicked the button!",
+                    icon: "success"
+                });
+                reset(updatedUserData);
+            }
+
+        } catch (error) {
+            console.error('Failed to update user data:', error);
+        }
 
         // toggleEditMode(); // Exit edit mode after saving
     };
