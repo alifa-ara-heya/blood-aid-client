@@ -28,7 +28,7 @@ const DashboardLayout = () => {
                     </label>
 
                     <FormProvider {...methods}>
-                        <div className="md:min-h-screen">
+                        <div className="md:min-h-screen container mx-auto">
                             <Outlet />
                         </div>
                     </FormProvider>
@@ -38,7 +38,8 @@ const DashboardLayout = () => {
                     <ul className="menu bg-primary text-white  min-h-full w-80 p-4">
                         {/* Sidebar content here */}
                         <li><Link to='/dashboard/profile'>Profile</Link></li>
-                        <li><a>Sidebar Item 2</a></li>
+                        <li><Link to='/dashboard/create-donation-request'>Create Donation Request</Link></li>
+
                     </ul>
                 </div>
             </div>

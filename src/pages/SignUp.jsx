@@ -110,11 +110,13 @@ const SignUp = () => {
             const response = await axiosPublic.post('/users', userInfo)
             console.log(response);
             // show success message
-            await Swal.fire({
-                title: "Success",
-                text: "Successfully Registered",
-                icon: "success"
-            });
+            if (response.data.insertedId) {
+                await Swal.fire({
+                    title: "Success",
+                    text: "Registration Successful",
+                    icon: "success",
+                });
+            }
 
 
         } catch (error) {

@@ -11,10 +11,10 @@ export const imageUpload = async (imageData) => {
             formData
         );
 
-        console.log("Response Data:", data); // Log the full response for debugging
+        // console.log("Response Data:", data); // Log the full response for debugging
 
         const imageURL = data?.data.display_url; // Access the image URL
-        console.log("Image URL:", imageURL);
+        // console.log("Image URL:", imageURL);
 
         return imageURL; // Return the image URL
     } catch (error) {

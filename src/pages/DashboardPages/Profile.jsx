@@ -5,11 +5,12 @@ import useRole from "../../hooks/useRole";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import useDistrictsAndUpazilas from "../../hooks/useDistrictsAndUpazilas";
 import Heading from "../../components/Shared/Heading";
 import { imageUpload } from "../../api/imageuploadUtils";
 import Swal from "sweetalert2";
+import { FaCrown } from "react-icons/fa";
 
 const Profile = () => {
     const methods = useForm();
@@ -18,7 +19,7 @@ const Profile = () => {
     const axiosSecure = useAxiosSecure();
     const [isEditable, setIsEditable] = useState(false);
 
-    const { data: userData = {}, isLoading: isLoadingUserData } = useQuery({
+    const { data: userData = {}, isLoading: isLoadingUserData, refetch } = useQuery({
         queryKey: ['user', user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
@@ -31,7 +32,7 @@ const Profile = () => {
 
     const handleDistrictChange = (event) => {
         setSelectedDistrictId(event.target.value);
-        console.log('Selected District ID:', event.target.value);
+        // console.log('Selected District ID:', event.target.value);
     };
 
     const {
@@ -50,6 +51,8 @@ const Profile = () => {
             upazila: userData?.upazila || '',
         },
     });
+    // console.log(user?.displayName);
+    // console.log(userData?.name);
 
     //fetching districts and upazilas
     const {
@@ -59,41 +62,22 @@ const Profile = () => {
         isUpazilasLoading,
     } = useDistrictsAndUpazilas();
 
-    // console.log(districtsData?.length);
-    // console.log(upazilasData?.length);
-    // console.log(districtsData);
-
-
-    // const selectedDistrictId = watch('district');
-
-    console.log(selectedDistrictId); //nothing consoles
-    // useEffect(() => {
-    //     console.log('Selected District ID:', selectedDistrictId); // Logs dynamically when the district field changes
-    // }, [selectedDistrictId]); // Re-run the effect whenever the district value changes
-
     // Filter upazilas based on the selected district
     const filteredUpazilas = upazilasData.filter(upazila => upazila.district_id === selectedDistrictId)
 
-    // // Find the names of the selected district and upazila
-    const selectedDistrict = districtsData.find(
-        (district) => district.id === selectedDistrictId
-    );
-    // console.log(selectedDistrict);
-
-    const selectedDistrictName = selectedDistrict?.name || "";
-
-    // console.log(filteredUpazilas);
-    console.log('selectedDistrictName:', selectedDistrictName);
-    console.log('user district:', userData.district);
-    // console.log(userData.bloodGroup);
-    // console.log(userData.image);
-    console.log('user upazila:', userData.upazila);
 
     useEffect(() => {
-        if (!isEditable) {
-            methods.reset(userData); // Reset the form when exiting edit mode
+        if (userData && !isEditable) {
+            reset({
+                name: userData.name || '',
+                email: userData.email || '',
+                bloodGroup: userData.bloodGroup || '',
+                photo: userData.image || '',
+                district: userData.district || '',
+                upazila: userData.upazila || '',
+            });
         }
-    }, [isEditable, methods, userData]);
+    }, [isEditable, reset, userData]);
 
     const toggleEditMode = () => {
         setIsEditable((prevState) => !prevState);
@@ -129,11 +113,14 @@ const Profile = () => {
             console.log(updatedUserData);
             if (updatedUserData.modifiedCount > 0) {
                 Swal.fire({
-                    title: "Good job!",
-                    text: "You clicked the button!",
+                    title: "Success",
+                    text: "Updated Successfully",
                     icon: "success"
                 });
-                reset(updatedUserData);
+                // Reset the form values
+                reset(updatedData);
+                // Refetch the user data to update the UI
+                refetch();
             }
 
         } catch (error) {
@@ -155,12 +142,12 @@ const Profile = () => {
                 </Helmet>
                 {/* <h2>Welcome from profile page: {userData.name} </h2>
                 <h2>Role: {role}</h2> */}
-                <img src={userData.image} alt="" className="w-32 h-32 md:w-60 rounded-full md:h-60 object-cover absolute xl:-top-12 md:top-9 left-1/2 transform -translate-x-1/2 -top-12  p-3 border-secondary border-2" />
-                <div className="card mx-auto w-[90%] shadow-2xl xl:max-w-[960px] p-10 xl:pt-28 lg:mb-16">
+                <img src={userData.image} alt="" className="w-32 h-32 md:w-60 rounded-full md:h-60 object-cover absolute xl:-top-8 md:top-9 left-1/2 transform -translate-x-1/2 -top-12  p-3 border-secondary border-2" />
+                <div className="card mx-auto w-[90%] shadow-2xl xl:max-w-[960px] p-10 xl:pt-28 lg:mb-16 xl:mt-12">
                     <div className="flex justify-between">
-                        <h2 className="text-lg font-bold mb-4">User Profile</h2> <div className="badge badge-primary badge-outline">{role}</div>
+                        <h2 className="text-lg font-bold mb-4">User Profile</h2> <div className="badge badge-primary badge-outline"><span className="text-yellow-500"><FaCrown /></span>{role}</div>
                     </div>
-                    <form onSubmit={methods.handleSubmit(onSubmit)} className="md:card-body">
+                    <form onSubmit={methods.handleSubmit(onSubmit)} className="md:card-body ">
 
                         {/* form-row-1 */}
 
@@ -173,6 +160,7 @@ const Profile = () => {
                                 <input
                                     type="text"
                                     {...methods.register('name', { required: 'Name is required' })}
+                                    defaultValue={userData.name}
                                     readOnly={!isEditable}
                                     className={`input input-bordered text-gray-500 ${isEditable ? 'border-gray-500 text-gray-800' : 'border-gray-200 bg-gray-100 '}`}
                                 />
@@ -188,6 +176,7 @@ const Profile = () => {
                                     type="email"
                                     {...methods.register('email')}
                                     readOnly={true} // Email is always read-only
+                                    defaultValue={userData.email}
                                     className="input input-bordered 
                                     text-gray-500 border-gray-200 bg-gray-100"
                                 />

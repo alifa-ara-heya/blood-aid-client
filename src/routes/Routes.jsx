@@ -7,6 +7,7 @@ import SignUp from "../pages/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Profile from "../pages/DashboardPages/Profile";
+import CreateDonationRequest from "../pages/DashboardPages/CreateDonationRequest";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: 'profile',
                 element: <Profile />
+            },
+            {
+                path: 'create-donation-request',
+                element: <CreateDonationRequest />
             }
         ]
     }
