@@ -55,7 +55,7 @@ const SignUp = () => {
     if (isDistrictsLoading || isUpazilasLoading) return <LoadingSpinner />
 
     const districtsData = districts[2]?.data || []
-    // console.log(districtsData.length);
+    console.log(districtsData.length);
 
     const upazilasData = upazilas[2]?.data || []
     // console.log(upazilasData.length);
@@ -93,7 +93,7 @@ const SignUp = () => {
             // console.log(selectedDistrictName);
 
             const selectedUpazila = upazilasData.find(upazila => upazila.id === data.upazila)
-            const selectedUpazilaName = selectedUpazila.name
+            const selectedUpazilaName = selectedUpazila?.name || '';
             // console.log(selectedUpazilaName);
 
             //what data will be sent to the database
@@ -193,7 +193,7 @@ const SignUp = () => {
                                     <span className="label-text">Blood Group</span>
                                 </label>
 
-                                <select name="type" className="select select-bordered text-gray-400 text-base capitalize"
+                                <select className="select select-bordered text-gray-400 text-base capitalize"
                                     defaultValue={''}
                                     {...register('bloodGroup', { required: true })}>
                                     <option value='' disabled>Choose from below</option>
