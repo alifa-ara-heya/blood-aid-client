@@ -3,6 +3,8 @@ import Heading from "../../components/Shared/Heading";
 import useAuth from "../../hooks/UseAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const DashboardHome = () => {
     const { user } = useAuth();
@@ -12,7 +14,7 @@ const DashboardHome = () => {
     // console.log(email);
 
     //getting donation requests
-    const { data: donationRequests = [] } = useQuery({
+    const { data: donationRequests = [], refetch } = useQuery({
         queryKey: ['donationRequests', email],
         enabled: !!email,
         queryFn: async () => {
@@ -21,10 +23,53 @@ const DashboardHome = () => {
         }
     })
 
-    //updating the donation request
-
 
     //deleting the donation request
+    const handleDeleteDonationRequest = async (id) => {
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            });
+
+            if (result.isConfirmed) {
+                const { data } = await axiosSecure.delete(`/delete-donation-request/${id}`);
+
+                if (data.deletedCount > 0) {
+                    await Swal.fire({
+                        title: "Success!",
+                        text: "Deleted Successfully",
+                        icon: "success"
+                    });
+
+                    // Refetch the user data to update the UI
+                    refetch();
+                } else {
+                    // Handle case where deletion fails
+                    await Swal.fire({
+                        title: "Error!",
+                        text: "Failed to delete the item. Please try again.",
+                        icon: "error"
+                    });
+                }
+            }
+
+        } catch (error) {
+            console.error('Error deleting the item:', error);
+            // Show error SweetAlert
+            await Swal.fire({
+                title: "Error!",
+                text: "An error occurred while deleting the item.",
+                icon: "error"
+            });
+        }
+    }
+
 
     // console.log(donationRequests.length);
 
@@ -66,8 +111,18 @@ const DashboardHome = () => {
                                         <td>{request.upazila}</td>
                                         <td>{request.donationDate}</td>
                                         <td>{request.donationTime}</td>
-                                        <td className="hover:scale-95 duration-200 hover:transition-transform text-center text-yellow-500"><button><FaEdit /></button></td>
-                                        <td className="text-center text-primary hover:scale-95 duration-200 hover:transition-transform"><button><FaTrashAlt /></button></td>
+                                        <td className="hover:scale-95 duration-200 hover:transition-transform text-center text-yellow-500">
+                                            <Link to={`update-donation-request/${request._id}`}>
+                                                <button>
+                                                    <FaEdit />
+                                                </button>
+                                            </Link>
+                                        </td>
+                                        <td className="text-center text-primary hover:scale-95 duration-200 hover:transition-transform">
+                                            <button onClick={() => handleDeleteDonationRequest(request._id)}>
+                                                <FaTrashAlt />
+                                            </button>
+                                        </td>
                                     </tr>
                                 )
                             })
