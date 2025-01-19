@@ -7,11 +7,13 @@ import { useState } from "react";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner/LoadingSpinner";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CreateDonationRequest = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [selectedDistrictId, setSelectedDistrictId] = useState(''); // Initialize with default
+    const navigate = useNavigate();
 
     //fetching districts and upazilas
     const {
@@ -69,6 +71,7 @@ const CreateDonationRequest = () => {
             donationTime: data.donationTime,
             message: data.message,
             donationStatus: 'pending',
+            timeStamp: new Date()
         }
         console.log(donationRequestData);
 
@@ -81,6 +84,7 @@ const CreateDonationRequest = () => {
                     icon: "success"
                 });
                 reset();
+                navigate('/dashboard');
             }
         } catch (error) {
             console.error('Failed to create donation request:', error);

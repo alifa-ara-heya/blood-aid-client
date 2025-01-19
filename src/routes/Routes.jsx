@@ -10,6 +10,8 @@ import Profile from "../pages/DashboardPages/Profile";
 import CreateDonationRequest from "../pages/DashboardPages/CreateDonationRequest";
 import DashboardHome from "../pages/DashboardPages/DashboardHome";
 import UpdateDonation from "../pages/DashboardPages/UpdateDonation";
+import MyDonationRequests from "../pages/DashboardPages/MyDonationRequests";
+import DonationDetails from "../pages/DashboardPages/DonationDetails";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +23,12 @@ const router = createBrowserRouter([
                 path: '/',
                 element: <Home />
             },
+            {
+                path: 'donation-details/:id',
+                element: <PrivateRoute>
+                    <DonationDetails />
+                </PrivateRoute>
+            },
         ]
     },
     {
@@ -31,6 +39,7 @@ const router = createBrowserRouter([
         path: 'signUp',
         element: <SignUp />
     },
+
     // Global Catch-All Route (For unmatched top-level paths)
     {
         path: "*",
@@ -58,6 +67,10 @@ const router = createBrowserRouter([
             {
                 path: 'update-donation-request/:id',
                 element: <UpdateDonation />,
+            },
+            {
+                path: 'my-all-donations',
+                element: <MyDonationRequests />
             }
         ]
     }

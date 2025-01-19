@@ -24,7 +24,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
-        console.log(data);
+        // console.log(data);
 
         try {
             const result = await signIn(data.email, data.password);
@@ -121,7 +121,7 @@ const Login = () => {
                                 </button>
                             </div>
                             <div className="form-control mt-6 w-full">
-                                <button className="btn bg-gradient-to-r from-rose-700 to-rose-500 border-none text-white mb-4 ">Register</button>
+                                <button className="btn bg-gradient-to-r from-rose-700 to-rose-500 border-none text-white mb-4 ">Login</button>
                             </div>
                         </div>
 

@@ -5,6 +5,8 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { BsArrowRight } from "react-icons/bs";
+import { FcViewDetails } from "react-icons/fc";
 
 const DashboardHome = () => {
     const { user } = useAuth();
@@ -96,6 +98,7 @@ const DashboardHome = () => {
                             <th>Time</th>
                             <th>Edit</th>
                             <th>Delete</th>
+                            <th>View Details</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -123,6 +126,13 @@ const DashboardHome = () => {
                                                 <FaTrashAlt />
                                             </button>
                                         </td>
+                                        <td className="hover:scale-95 duration-200 hover:transition-transform text-center text-yellow-500 text-xl">
+                                            <Link to={`/donation-details/${request._id}`}>
+                                                <button>
+                                                    <FcViewDetails />
+                                                </button>
+                                            </Link>
+                                        </td>
                                     </tr>
                                 )
                             })
@@ -131,6 +141,14 @@ const DashboardHome = () => {
                     </tbody>
                 </table>
             </div>}
+
+            <div className="text-center mt-12">
+                <Link to='/dashboard/my-all-donations'>
+                    <button className="btn bg-gradient-to-r from-rose-700 to-rose-500 border-none text-white">View My All Requests
+                        <BsArrowRight />
+                    </button>
+                </Link>
+            </div>
         </div>
     );
 };

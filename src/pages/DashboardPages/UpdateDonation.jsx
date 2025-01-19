@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Heading from "../../components/Shared/Heading";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner/LoadingSpinner";
 import Swal from "sweetalert2";
@@ -12,6 +12,9 @@ import { useQuery } from "@tanstack/react-query";
 const UpdateDonation = () => {
     const { id } = useParams();
     const { user } = useAuth();
+    const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
+
 
     // console.log(id);
 
@@ -24,7 +27,6 @@ const UpdateDonation = () => {
     });
     console.log(donationData.recipientName);
 
-    const axiosSecure = useAxiosSecure();
     const [selectedDistrictId, setSelectedDistrictId] = useState(''); // Initialize with default
 
     //fetching districts and upazilas
@@ -97,6 +99,7 @@ const UpdateDonation = () => {
                 reset(updatedData);
                 // Refetch the user data to update the UI
                 refetch();
+                navigate('/dashboard/my-all-donations');
             }
 
         } catch (error) {
