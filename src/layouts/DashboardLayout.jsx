@@ -61,6 +61,7 @@ const DashboardLayout = () => {
                         {/* Sidebar content here */}
                         <div className="menu">
                             <li><Link to='/'>Blood Aid</Link></li>
+                            <li><Link to='/dashboard'>Dashboard</Link></li>
                             <li><Link to='/dashboard/profile'>Profile</Link></li>
                             <li><Link to='/dashboard/create-donation-request'>Create Donation Request</Link></li>
                         </div>

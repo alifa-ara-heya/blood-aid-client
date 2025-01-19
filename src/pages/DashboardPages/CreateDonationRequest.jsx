@@ -80,6 +80,7 @@ const CreateDonationRequest = () => {
                     text: "Successfully created a donation request. Your request will be reviewed by our team. Thank you for your request.",
                     icon: "success"
                 });
+                reset();
             }
         } catch (error) {
             console.error('Failed to create donation request:', error);
