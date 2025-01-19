@@ -3,14 +3,15 @@ import useAuth from "../../hooks/UseAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
+import PropTypes from 'prop-types';
+
 const Modal = ({ donationData }) => {
+
     console.log(donationData.donationStatus);
     const { user } = useAuth();
     const name = user?.displayName;
     const email = user?.email;
     const axiosSecure = useAxiosSecure();
-
-
 
 
     const handleConfirmBtn = async (e) => {
@@ -89,6 +90,10 @@ const Modal = ({ donationData }) => {
             </div>
         </dialog>
     );
+};
+
+Modal.propTypes = {
+    donationData: PropTypes.object.isRequired,
 };
 
 export default Modal;

@@ -96,12 +96,14 @@ const DonationDetails = () => {
 
             {/* Donate Button */}
             <div className="my-6 lg:my-12 flex justify-center">
-                <button
-                    className="btn bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition duration-300"
-                    onClick={() => document.getElementById('my_modal_5').showModal()}
-                >
-                    Donate Now
-                </button>
+                {
+                    donationData.donationStatus === 'pending' && <button
+                        className="btn bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition duration-300"
+                        onClick={() => document.getElementById('my_modal_5').showModal()}
+                    >
+                        Donate Now
+                    </button>
+                }
             </div>
             <Modal donationData={donationData} />
         </div>

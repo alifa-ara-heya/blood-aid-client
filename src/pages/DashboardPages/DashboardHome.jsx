@@ -25,6 +25,101 @@ const DashboardHome = () => {
         }
     })
 
+    //done status update
+
+    const updatedDonationStatusDone = {
+        donationStatus: "done"
+    }
+
+    const handleDoneButton = async (id) => {
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "Are you sure you want to mark this donation as done?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, mark as done!"
+            });
+            if (result.isConfirmed) {
+                const { data: updatedStatus } = await axiosSecure.patch(`update-donation-status/${id}`, updatedDonationStatusDone);
+                if (updatedStatus.modifiedCount > 0) {
+                    await Swal.fire({
+                        title: "Success",
+                        text: "Updated Successfully. We hope you had a great experience!",
+                        icon: "success"
+                    });
+
+                    refetch();
+                }
+                else {
+                    // Handle case where deletion fails
+                    await Swal.fire({
+                        title: "Error!",
+                        text: "Failed to update the status. Please try again.",
+                        icon: "error"
+                    });
+                }
+            }
+
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                title: "Error",
+                text: "Could not update the donation request. Please try again later.",
+                icon: "error",
+            });
+        }
+    }
+
+    //cancel status update
+
+    const updateDonationStatusCancel = {
+        donationStatus: "canceled"
+    }
+
+    const handleCancelButton = async (id) => {
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "Are you sure you want to mark this donation as canceled?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, mark as canceled!"
+            });
+            if (result.isConfirmed) {
+                const { data: updatedStatus } = await axiosSecure.patch(`update-donation-status/${id}`, updateDonationStatusCancel);
+                if (updatedStatus.modifiedCount > 0) {
+                    await Swal.fire({
+                        title: "Success",
+                        text: "Updated Successfully. We hope you had a great experience!",
+                        icon: "success"
+                    });
+
+                    refetch();
+                }
+                else {
+                    // Handle case where deletion fails
+                    await Swal.fire({
+                        title: "Error!",
+                        text: "Failed to update the status. Please try again.",
+                        icon: "error"
+                    });
+                }
+            }
+
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                title: "Error",
+                text: "Could not update the donation request. Please try again later.",
+                icon: "error",
+            });
+        }
+    }
 
     //deleting the donation request
     const handleDeleteDonationRequest = async (id) => {
@@ -119,27 +214,30 @@ const DashboardHome = () => {
                                         <td>{request.upazila}</td>
                                         <td>{request.donationDate}</td>
                                         <td>{request.donationTime}</td>
-                                        <td>{request.donationStatus}</td>
+                                        <td
+                                            className={`text-center
+                                            ${request.donationStatus === 'pending' ? 'bg-yellow-100 text-yellow-600' : ''}
+                                            ${request.donationStatus === 'inprogress' ? 'bg-blue-100 text-blue-600' : ''}
+                                            ${request.donationStatus === 'done' ? 'bg-green-100 text-green-600' : ''}
+                                            ${request.donationStatus === 'canceled' ? 'bg-red-100 text-red-600' : ''}
+                                        `}
+                                        >
+                                            {request.donationStatus}
+                                        </td>
+
 
                                         <td>{request.donationStatus === 'inprogress' ?
-                                            request.donorName : <span className="flex items-center  gap-1">
-                                                <span>none</span>
-                                                <span
-                                                    title="waiting for donor" className="text-blue-400 border rounded-full text-xs
-                                                cursor-pointer border-blue-300"><FaInfo /></span>
-                                            </span>}</td>
+                                            request.donorName : <span ></span>
+                                        }</td>
+
 
                                         <td>{request.donationStatus === 'inprogress' ?
-                                            request.donorEmail : <span className="flex items-center  gap-1">
-                                                <span>none</span>
-                                                <span
-                                                    title="waiting for donor" className="text-blue-400 border rounded-full text-xs
-                                                cursor-pointer border-blue-300"><FaInfo /></span>
-                                            </span>}</td>
+                                            request.donorEmail : <span ></span>
+                                        }</td>
+
 
                                         <td className="hover:scale-95 duration-200 hover:transition-transform text-center text-yellow-500">
-
-                                            <Link to={`update-donation-request/${request._id}`}>
+                                            <Link to={`/dashboard/update-donation-request/${request._id}`}>
                                                 <button>
                                                     <FaEdit />
                                                 </button>
@@ -157,8 +255,10 @@ const DashboardHome = () => {
                                                 </button>
                                             </Link>
                                         </td>
-                                        {request.donationStatus === 'inprogress' && <td><button className="btn bg-green-500 text-white btn-sm">Done</button></td>}
-                                        {request.donationStatus === 'inprogress' && <td><button className="btn bg-red-500 text-white btn-sm">Cancel</button></td>}
+
+                                        {request.donationStatus === 'inprogress' && <td><button
+                                            onClick={() => handleDoneButton(request._id)} className="btn bg-green-500 text-white btn-sm">Done</button></td>}
+                                        {request.donationStatus === 'inprogress' && <td><button onClick={() => handleCancelButton(request._id)} className="btn bg-red-500 text-white btn-sm">Cancel</button></td>}
                                     </tr>
                                 )
                             })
