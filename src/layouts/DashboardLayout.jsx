@@ -4,10 +4,32 @@ import ShortFooter from "../components/ShortFooter/ShortFooter";
 import { FiMenu } from "react-icons/fi";
 import { FormProvider, useForm } from "react-hook-form";
 import bg from '../assets/fabric_1.webp';
+import { AiOutlineLogout } from "react-icons/ai";
+import useAuth from "../hooks/UseAuth";
+import Swal from "sweetalert2";
 
 
 const DashboardLayout = () => {
+    const { logOut } = useAuth();
     const methods = useForm(); // Initialize useForm here
+
+    const handleLogOut = async () => {
+        try {
+            await logOut();
+            await Swal.fire({
+                title: 'Success',
+                text: 'Successfully Logged Out',
+                icon: 'success'
+            })
+        } catch (err) {
+            console.log('Logout failed', err);
+            await Swal.fire({
+                title: 'Error',
+                text: err.message || "Failed to log out. Please try again.",
+                icon: "error",
+            })
+        }
+    }
     return (
         <div style={{ backgroundImage: `url(${bg})` }}>
             {/* <div className="">
@@ -35,10 +57,18 @@ const DashboardLayout = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                    <ul className="menu bg-primary text-white  min-h-full w-80 p-4">
+                    <ul className="menu bg-primary text-white  min-h-full w-80 p-4 flex justify-between flex-col">
                         {/* Sidebar content here */}
-                        <li><Link to='/dashboard/profile'>Profile</Link></li>
-                        <li><Link to='/dashboard/create-donation-request'>Create Donation Request</Link></li>
+                        <div className="menu">
+                            <li><Link to='/'>Blood Aid</Link></li>
+                            <li><Link to='/dashboard/profile'>Profile</Link></li>
+                            <li><Link to='/dashboard/create-donation-request'>Create Donation Request</Link></li>
+                        </div>
+
+                        <div>
+                            <button className="btn" onClick={handleLogOut}>
+                                <AiOutlineLogout size={18} />Logout</button>
+                        </div>
 
                     </ul>
                 </div>

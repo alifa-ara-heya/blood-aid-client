@@ -127,7 +127,7 @@ const Profile = () => {
             console.error('Failed to update user data:', error);
         }
 
-        // toggleEditMode(); // Exit edit mode after saving
+        toggleEditMode(); // Exit edit mode after saving
     };
 
     if (isDistrictsLoading || isUpazilasLoading || isLoading || isLoadingUserData) return <LoadingSpinner />;
