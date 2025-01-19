@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import donateImg from '../assets/Blood-donation-illus-color-removebg-preview.png'
 import logo from '../assets/icons8-blood-100.png'
 import bg from '../assets/fabric_1.webp'
@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 
 const SignUp = () => {
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
     const { createUser, updateUserProfile } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -55,7 +56,7 @@ const SignUp = () => {
     if (isDistrictsLoading || isUpazilasLoading) return <LoadingSpinner />
 
     const districtsData = districts[2]?.data || []
-    console.log(districtsData.length);
+    // console.log(districtsData.length);
 
     const upazilasData = upazilas[2]?.data || []
     // console.log(upazilasData.length);
@@ -116,6 +117,7 @@ const SignUp = () => {
                     text: "Registration Successful",
                     icon: "success",
                 });
+                navigate('/')
             }
 
 

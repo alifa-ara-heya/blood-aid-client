@@ -10,6 +10,7 @@ import mapIcon from '../../assets/map.png'
 import hospitalIcon from '../../assets/hospital.png'
 import scheduleIcon from '../../assets/schedule.png'
 import informationIcon from '../../assets/information-button.png'
+import Modal from "../../components/Modal/Modal";
 
 
 const DonationDetails = () => {
@@ -102,6 +103,7 @@ const DonationDetails = () => {
                     Donate Now
                 </button>
             </div>
+            <Modal donationData={donationData} />
         </div>
     );
 };

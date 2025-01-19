@@ -4,7 +4,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Heading from "../../components/Shared/Heading";
 import { FcViewDetails } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaInfo, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const MyDonationRequests = () => {
@@ -89,9 +89,14 @@ const MyDonationRequests = () => {
                             <th>Upazila</th>
                             <th>Date</th>
                             <th>Time</th>
+                            <th>Donation Status</th>
+                            <th>Donor Name</th>
+                            <th>Donor Email</th>
                             <th>Edit</th>
                             <th>Delete</th>
                             <th>View Details</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -107,6 +112,25 @@ const MyDonationRequests = () => {
                                         <td>{request.upazila}</td>
                                         <td>{request.donationDate}</td>
                                         <td>{request.donationTime}</td>
+                                        <td>{request.donationStatus}</td>
+
+                                        <td>{request.donationStatus === 'inprogress' ?
+                                            request.donorName : <span className="flex items-center  gap-1">
+                                                <span>none</span>
+                                                <span
+                                                    title="waiting for donor" className="text-blue-400 border rounded-full text-xs
+                                                cursor-pointer border-blue-300"><FaInfo /></span>
+                                            </span>}</td>
+
+                                        <td>{request.donationStatus === 'inprogress' ?
+                                            request.donorEmail : <span className="flex items-center  gap-1">
+                                                <span>none</span>
+                                                <span
+                                                    title="waiting for donor" className="text-blue-400 border rounded-full text-xs
+                                                cursor-pointer border-blue-300"><FaInfo /></span>
+                                            </span>}</td>
+
+
                                         <td className="hover:scale-95 duration-200 hover:transition-transform text-center text-yellow-500">
                                             <Link to={`/dashboard/update-donation-request/${request._id}`}>
                                                 <button>
@@ -126,6 +150,9 @@ const MyDonationRequests = () => {
                                                 </button>
                                             </Link>
                                         </td>
+
+                                        {request.donationStatus === 'inprogress' && <td><button className="btn bg-green-500 text-white btn-sm">Done</button></td>}
+                                        {request.donationStatus === 'inprogress' && <td><button className="btn bg-red-500 text-white btn-sm">Cancel</button></td>}
                                     </tr>
                                 )
                             })
