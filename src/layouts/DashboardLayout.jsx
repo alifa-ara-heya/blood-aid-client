@@ -38,15 +38,7 @@ const DashboardLayout = () => {
 
     return (
         <div style={{ backgroundImage: `url(${bg})` }} className="w-full">
-            {/* <div className="">
-                <div className="flex">
-                    <Sidebar />
-                    <div className="min-h-screen">
-                        <Outlet />
-                    </div>
-                </div>
-                <ShortFooter />
-            </div> */}
+
             <div className="drawer">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content w-full">

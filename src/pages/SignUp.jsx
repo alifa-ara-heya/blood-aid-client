@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import useAxiosPublic from '../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
+import PropTypes from 'prop-types';
 
 
 const SignUp = () => {
@@ -348,6 +349,10 @@ const SignUp = () => {
             <ShortFooter />
         </div>
     );
+};
+
+SignUp.propTypes = {
+    children: PropTypes.node, // Validate that children is a React node and required
 };
 
 export default SignUp;

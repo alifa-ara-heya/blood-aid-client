@@ -3,15 +3,17 @@ import Heading from "../../../components/Shared/Heading";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaCrown } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
+    const [filterStatus, setFilterStatus] = useState('');
 
     //getting all users
     const { data: users = [], refetch } = useQuery({
-        queryKey: ['users'],
+        queryKey: ['users', filterStatus],
         queryFn: async () => {
-            const { data } = await axiosSecure.get('/allUsers');
+            const { data } = await axiosSecure.get(`/allUsers?filterStatus=${filterStatus}`);
             return data;
         }
     })
@@ -75,6 +77,17 @@ const AllUsers = () => {
     return (
         <div>
             <Heading title={'All Users'} subtitle={'Discover and manage the complete list of users in the system, including donors, admins, and volunteers, all in one place.'} />
+
+            <select
+                className="select select-bordered w-1/4 bg-gray-100 my-6"
+                name="type"
+                id='type'
+                onChange={e => setFilterStatus(e.target.value)}
+                value={filterStatus}>
+                <option value=''>Filter By Type</option>
+                <option value="active">Active</option>
+                <option value="blocked">Blocked</option>
+            </select>
 
             <table className="table my-8">
                 {/* head */}
