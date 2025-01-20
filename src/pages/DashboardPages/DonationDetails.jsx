@@ -11,6 +11,7 @@ import hospitalIcon from '../../assets/hospital.png'
 import scheduleIcon from '../../assets/schedule.png'
 import informationIcon from '../../assets/information-button.png'
 import Modal from "../../components/Modal/Modal";
+import { BiDonateBlood } from "react-icons/bi";
 
 
 const DonationDetails = () => {
@@ -101,7 +102,7 @@ const DonationDetails = () => {
                         className="btn bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition duration-300"
                         onClick={() => document.getElementById('my_modal_5').showModal()}
                     >
-                        Donate Now
+                        Donate Now <BiDonateBlood size={20} />
                     </button>
                 }
             </div>

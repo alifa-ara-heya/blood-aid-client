@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import Heading from "../../components/Shared/Heading";
 import useAuth from "../../hooks/UseAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { FaEdit, FaInfo, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { BsArrowRight } from "react-icons/bs";
 import { FcViewDetails } from "react-icons/fc";
 
-const DashboardHome = () => {
+const DonorHome = () => {
     const { user } = useAuth();
     const name = user?.displayName;
     const email = user?.email;
@@ -279,4 +279,4 @@ const DashboardHome = () => {
     );
 };
 
-export default DashboardHome;
+export default DonorHome;

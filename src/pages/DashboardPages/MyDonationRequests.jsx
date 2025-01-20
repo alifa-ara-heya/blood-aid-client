@@ -4,7 +4,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Heading from "../../components/Shared/Heading";
 import { FcViewDetails } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { FaEdit, FaInfo, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const MyDonationRequests = () => {

@@ -8,10 +8,12 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Profile from "../pages/DashboardPages/Profile";
 import CreateDonationRequest from "../pages/DashboardPages/CreateDonationRequest";
-import DashboardHome from "../pages/DashboardPages/DashboardHome";
+import DonorHome from "../pages/DashboardPages/DonorHome";
 import UpdateDonation from "../pages/DashboardPages/UpdateDonation";
 import MyDonationRequests from "../pages/DashboardPages/MyDonationRequests";
 import DonationDetails from "../pages/DashboardPages/DonationDetails";
+import BloodDonationRequests from "../pages/BloodDonationRequests";
+import DynamicHome from "../pages/DashboardPages/DynamicHome";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />
+            },
+            {
+                path: 'blood-donation-requests',
+                element: <BloodDonationRequests />
             },
             {
                 path: 'donation-details/:id',
@@ -54,7 +60,7 @@ const router = createBrowserRouter([
             //default route
             {
                 index: true,
-                element: <DashboardHome />
+                element: <DynamicHome />
             },
             {
                 path: 'profile',
