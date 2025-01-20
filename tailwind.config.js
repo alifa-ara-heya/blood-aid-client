@@ -18,6 +18,7 @@ export default {
     themes: [
       {
         light: {
+          // eslint-disable-next-line no-undef
           ...require("daisyui/src/theming/themes")["light"],
           primary: "#C71A42",
           secondary: "#FCE0A2",

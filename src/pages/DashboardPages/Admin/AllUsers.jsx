@@ -100,73 +100,76 @@ const AllUsers = () => {
                 <option value="blocked">Blocked</option>
             </select>
 
-            <table className="table my-8">
-                {/* head */}
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Block User</th>
-                        <th>Unblock User</th>
-                        <th>Make Volunteer</th>
-                        <th>Make Admin</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        users.map((user, index) => <tr key={user._id} className="overflow-x-auto">
-                            {/* row 1 */}
-
-                            <td>{index + 1}</td>
-                            <td>
-                                <div className="flex items-center gap-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle h-12 w-12">
-                                            <img
-                                                src={user.image}
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="font-bold">{user.name}</div>
-                                        <div className="text-sm opacity-50">{user.upazila}, {user.district}</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td className="font-medium text-gray-500">{user.email}</td>
-                            <td>
-                                {user.role === 'admin' ? <span className="inline-flex items-center gap-1"><FaCrown color="#EAB308" />{user.role}</span> : user.role}
-                            </td>
-                            <td><span className={`badge badge-md ${user.status === 'active' ? 'bg-blue-200 text-blue-700' : 'bg-red-200 text-red-700'}`}>{user.status}</span></td>
-                            <td>
-                                <button
-                                    onClick={() => handleUserStatus(user._id, 'blocked')}
-                                    className="btn btn-sm bg-rose-700 text-white">Block</button>
-                            </td>
-                            <td>
-                                <button
-                                    onClick={() => handleUserStatus(user._id, 'active')}
-                                    className="btn btn-sm bg-green-500 text-white">Unblock</button>
-                            </td>
-                            <td>
-                                <button
-                                    onClick={() => handleUserRole(user._id, 'volunteer')}
-                                    className="btn btn-sm bg-blue-500 text-white">Make Volunteer</button>
-                            </td>
-                            <td>
-                                <button
-                                    onClick={() => handleUserRole(user._id, 'admin')}
-                                    className="btn btn-sm bg-orange-700 text-white">Make Admin</button>
-                            </td>
+            <div className="overflow-x-auto">
+                <table className="table my-8 ">
+                    {/* head */}
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Block User</th>
+                            <th>Unblock User</th>
+                            <th>Make Volunteer</th>
+                            <th>Make Admin</th>
                         </tr>
-                        )
-                    }
-                </tbody>
+                    </thead>
+                    <tbody>
+                        {
+                            users.map((user, index) =>
 
-            </table>
+                                <tr key={user._id} className="overflow-x-auto">
+
+                                    {/*  {/* global index to make sure  the index will continue to count documents across pages correctly*/}
+                                    <td>{(page - 1) * limit + index + 1}</td>
+                                    <td>
+                                        <div className="flex items-center gap-3">
+                                            <div className="avatar">
+                                                <div className="mask mask-squircle h-12 w-12">
+                                                    <img
+                                                        src={user.image}
+                                                        alt="Avatar Tailwind CSS Component" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div className="font-bold">{user.name}</div>
+                                                <div className="text-sm opacity-50">{user.upazila}, {user.district}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="font-medium text-gray-500">{user.email}</td>
+                                    <td>
+                                        {user.role === 'admin' ? <span className="inline-flex items-center gap-1"><FaCrown color="#EAB308" />{user.role}</span> : user.role}
+                                    </td>
+                                    <td><span className={`badge badge-md ${user.status === 'active' ? 'bg-blue-200 text-blue-700' : 'bg-red-200 text-red-700'}`}>{user.status}</span></td>
+                                    <td>
+                                        <button
+                                            onClick={() => handleUserStatus(user._id, 'blocked')}
+                                            className="btn btn-sm bg-rose-700 text-white">Block</button>
+                                    </td>
+                                    <td>
+                                        <button
+                                            onClick={() => handleUserStatus(user._id, 'active')}
+                                            className="btn btn-sm bg-green-500 text-white">Unblock</button>
+                                    </td>
+                                    <td>
+                                        <button
+                                            onClick={() => handleUserRole(user._id, 'volunteer')}
+                                            className="btn btn-sm bg-blue-500 text-white">Make Volunteer</button>
+                                    </td>
+                                    <td>
+                                        <button
+                                            onClick={() => handleUserRole(user._id, 'admin')}
+                                            className="btn btn-sm bg-orange-700 text-white">Make Admin</button>
+                                    </td>
+                                </tr>
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
 
 
             {/* pagination */}

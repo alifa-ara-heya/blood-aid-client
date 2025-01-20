@@ -16,6 +16,7 @@ import BloodDonationRequests from "../pages/BloodDonationRequests";
 import DynamicHome from "../pages/DashboardPages/DynamicHome";
 import AdminRoute from "./AdminRoute";
 import AllUsers from "../pages/DashboardPages/Admin/AllUsers";
+import AllRequests from "../pages/DashboardPages/Admin/AllRequests";
 
 const router = createBrowserRouter([
     {
@@ -84,6 +85,12 @@ const router = createBrowserRouter([
                 path: 'all-users',
                 element: <AdminRoute>
                     <AllUsers />
+                </AdminRoute>
+            },
+            {
+                path: 'all-blood-donation-requests',
+                element: <AdminRoute>
+                    <AllRequests />
                 </AdminRoute>
             }
         ]

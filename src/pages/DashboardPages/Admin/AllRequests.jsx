@@ -8,9 +8,9 @@ import { FaArrowLeft, FaArrowRight, FaEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useState } from "react";
 
-const MyDonationRequests = () => {
+const AllRequests = () => {
     const { user } = useAuth();
-    const email = user?.email;
+    // const email = user?.email;
     const name = user?.displayName;
     const axiosSecure = useAxiosSecure();
     const [filterStatus, setFilterStatus] = useState('');
@@ -19,10 +19,10 @@ const MyDonationRequests = () => {
 
     //getting all donation requests
     const { data = {}, refetch } = useQuery({
-        queryKey: ['donationRequests', email, page, filterStatus],
-        enabled: !!email,
+        queryKey: ['allDonationRequests', page, filterStatus],
+        enabled: !!user,
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`/donationRequests/${email}?filterStatus=${filterStatus}&page=${page}&limit=${limit}`);
+            const { data } = await axiosSecure.get(`/allDonationRequests?filterStatus=${filterStatus}&page=${page}&limit=${limit}`);
             return data;
         }
     });
@@ -183,7 +183,7 @@ const MyDonationRequests = () => {
 
     return (
         <div>
-            <Heading title={`Welcome, ${name}`} subtitle={'Thank you for being a hero and saving lives through your selfless donations. Your generosity brings hope and strength to those in need—thank you for making a difference!'} />
+            <Heading title={'All Donation Requests'} subtitle={`Welcome, ${name}. Thank you for being a hero and saving lives through your selfless donations. Your generosity brings hope and strength to those in need—thank you for making a difference!`} />
 
             <select
                 className="select select-bordered w-1/4 bg-gray-100 my-6"
@@ -321,4 +321,4 @@ const MyDonationRequests = () => {
     );
 };
 
-export default MyDonationRequests;
+export default AllRequests;

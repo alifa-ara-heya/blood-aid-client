@@ -48,7 +48,7 @@ const DashboardLayout = () => {
                     </label>
 
                     <FormProvider {...methods}>
-                        <div className="md:min-h-screen container mx-auto overflow-x-scroll">
+                        <div className="md:min-h-screen container mx-auto ">
                             <Outlet />
                         </div>
                     </FormProvider>
@@ -62,8 +62,14 @@ const DashboardLayout = () => {
                             <li><Link to='/dashboard'>Dashboard</Link></li>
                             <li><Link to='/dashboard/profile'>Profile</Link></li>
                             <li><Link to='/dashboard/create-donation-request'>Create Donation Request</Link></li>
+
+                            {/* admin only routes */}
                             {
-                                role === 'admin' && <li><Link to='/dashboard/all-users'>All Users</Link></li>
+                                role === 'admin' && (<>
+                                    <li><Link to='/dashboard/all-users'>All Users</Link></li>
+                                    <li><Link to='/dashboard/all-blood-donation-requests'>All Blood Donation Requests</Link></li>
+                                </>
+                                )
                             }
                         </div>
 
