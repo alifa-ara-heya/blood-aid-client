@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner/LoadingSpinner";
 import useRole from "../../hooks/useRole";
-import AdminHome from "./AdminHome";
-import DonorHome from "./DonorHome";
-import VolunteerHome from "./VolunteerHome";
+import AdminHome from "./Admin/AdminHome";
+import DonorHome from "./Donor/DonorHome";
+import VolunteerHome from "./Volunteer/VolunteerHome";
 
 const DynamicHome = () => {
     const [role, isLoading] = useRole();
@@ -17,6 +17,7 @@ const DynamicHome = () => {
     } else if (role === 'volunteer') {
         return <VolunteerHome />
     } else {
+        // Handle unauthorized access or unexpected roles
         return <Navigate to="/" replace />
     }
 

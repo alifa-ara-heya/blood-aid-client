@@ -142,7 +142,7 @@ const Profile = () => {
                 </Helmet>
                 {/* <h2>Welcome from profile page: {userData.name} </h2>
                 <h2>Role: {role}</h2> */}
-                <img src={userData.image} alt="" className="w-32 h-32 md:w-60 rounded-full md:h-60 object-cover absolute xl:-top-8 md:top-9 left-1/2 transform -translate-x-1/2 -top-12  p-3 border-secondary border-2" />
+                <img src={userData.image} alt="" className="w-32 h-32 md:w-60 rounded-full md:h-60 object-cover absolute xl:top-2 md:top-9 left-1/2 transform -translate-x-1/2 -top-12  p-3 border-secondary border-2" />
                 <div className="card mx-auto w-[90%] shadow-2xl xl:max-w-[960px] p-10 xl:pt-28 lg:mb-16 xl:mt-12">
                     <div className="flex justify-between">
                         <h2 className="text-lg font-bold mb-4">User Profile</h2> <div className="badge badge-primary badge-outline"><span className="text-yellow-500"><FaCrown /></span>{role}</div>

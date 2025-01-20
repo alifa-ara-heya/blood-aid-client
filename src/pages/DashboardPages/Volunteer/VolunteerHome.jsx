@@ -1,4 +1,4 @@
-import useAuth from "../../hooks/UseAuth";
+import useAuth from "../../../hooks/UseAuth";
 
 const VolunteerHome = () => {
     const { user } = useAuth();

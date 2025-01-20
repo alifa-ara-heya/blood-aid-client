@@ -8,12 +8,14 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Profile from "../pages/DashboardPages/Profile";
 import CreateDonationRequest from "../pages/DashboardPages/CreateDonationRequest";
-import DonorHome from "../pages/DashboardPages/DonorHome";
+import DonorHome from "../pages/DashboardPages/Donor/DonorHome";
 import UpdateDonation from "../pages/DashboardPages/UpdateDonation";
-import MyDonationRequests from "../pages/DashboardPages/MyDonationRequests";
+import MyDonationRequests from "../pages/DashboardPages/Donor/MyDonationRequests";
 import DonationDetails from "../pages/DashboardPages/DonationDetails";
 import BloodDonationRequests from "../pages/BloodDonationRequests";
 import DynamicHome from "../pages/DashboardPages/DynamicHome";
+import AdminRoute from "./AdminRoute";
+import AllUsers from "../pages/DashboardPages/Admin/AllUsers";
 
 const router = createBrowserRouter([
     {
@@ -77,6 +79,12 @@ const router = createBrowserRouter([
             {
                 path: 'my-all-donations',
                 element: <MyDonationRequests />
+            },
+            {
+                path: 'all-users',
+                element: <AdminRoute>
+                    <AllUsers />
+                </AdminRoute>
             }
         ]
     }

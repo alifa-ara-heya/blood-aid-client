@@ -35,7 +35,7 @@ const Login = () => {
                 text: "Successfully Logged In",
                 icon: "success"
             });
-            navigate('/')
+            navigate('/dashboard')
             reset();
 
         } catch (err) {

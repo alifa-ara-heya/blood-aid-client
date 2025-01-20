@@ -117,7 +117,8 @@ const SignUp = () => {
                     text: "Registration Successful",
                     icon: "success",
                 });
-                navigate('/')
+                navigate('/dashboard')
+                reset();
             }
 
 
@@ -130,7 +131,6 @@ const SignUp = () => {
             });
         }
     }
-
 
 
     return (

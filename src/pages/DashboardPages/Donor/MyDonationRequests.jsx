@@ -1,29 +1,28 @@
 import { useQuery } from "@tanstack/react-query";
-import Heading from "../../components/Shared/Heading";
-import useAuth from "../../hooks/UseAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
-import { BsArrowRight } from "react-icons/bs";
+import useAuth from "../../../hooks/UseAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Heading from "../../../components/Shared/Heading";
 import { FcViewDetails } from "react-icons/fc";
+import { Link } from "react-router-dom";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
 
-const DonorHome = () => {
+const MyDonationRequests = () => {
     const { user } = useAuth();
-    const name = user?.displayName;
     const email = user?.email;
+    const name = user?.displayName;
     const axiosSecure = useAxiosSecure();
-    // console.log(email);
+    const page = 1;
 
-    //getting donation requests
+    //getting all donation requests
     const { data: donationRequests = [], refetch } = useQuery({
-        queryKey: ['donationRequests', email],
+        queryKey: ['donationRequests', email, page],
         enabled: !!email,
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`/donationRequests/${email}?limit=3`);
+            const { data } = await axiosSecure.get(`/donationRequests/${email}?page=${page}`);
             return data;
         }
-    })
+    });
 
     //done status update
 
@@ -168,15 +167,9 @@ const DonorHome = () => {
     }
 
 
-    // console.log(donationRequests.length);
-
-
     return (
         <div>
-            {/* welcome section */}
             <Heading title={`Welcome, ${name}`} subtitle={'Thank you for being a hero and saving lives through your selfless donations. Your generosity brings hope and strength to those in need—thank you for making a difference!'} />
-
-            {/* Donation requests */}
 
             {donationRequests.length > 0 && <div className="overflow-x-auto">
                 <table className="table">
@@ -267,16 +260,10 @@ const DonorHome = () => {
                     </tbody>
                 </table>
             </div>}
-
-            <div className="text-center mt-12">
-                <Link to='/dashboard/my-all-donations'>
-                    <button className="btn bg-gradient-to-r from-rose-700 to-rose-500 border-none text-white">View My All Requests
-                        <BsArrowRight />
-                    </button>
-                </Link>
-            </div>
         </div>
+
+
     );
 };
 
-export default DonorHome;
+export default MyDonationRequests;

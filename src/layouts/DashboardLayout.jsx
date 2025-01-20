@@ -7,10 +7,13 @@ import bg from '../assets/fabric_1.webp';
 import { AiOutlineLogout } from "react-icons/ai";
 import useAuth from "../hooks/UseAuth";
 import Swal from "sweetalert2";
+import useRole from "../hooks/useRole";
+import LoadingSpinner from "../components/Shared/LoadingSpinner/LoadingSpinner";
 
 
 const DashboardLayout = () => {
     const { logOut } = useAuth();
+    const [role, isLoading] = useRole();
     const methods = useForm(); // Initialize useForm here
 
     const handleLogOut = async () => {
@@ -30,8 +33,11 @@ const DashboardLayout = () => {
             })
         }
     }
+    if (isLoading) return <LoadingSpinner />
+
+
     return (
-        <div style={{ backgroundImage: `url(${bg})` }}>
+        <div style={{ backgroundImage: `url(${bg})` }} className="w-full">
             {/* <div className="">
                 <div className="flex">
                     <Sidebar />
@@ -43,14 +49,14 @@ const DashboardLayout = () => {
             </div> */}
             <div className="drawer">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content">
+                <div className="drawer-content w-full">
                     {/* Page content here */}
                     <label htmlFor="my-drawer-2" className="btn drawer-button w-12 text-primary hover:bg-primary hover:text-white m-6">
                         <FiMenu />
                     </label>
 
                     <FormProvider {...methods}>
-                        <div className="md:min-h-screen container mx-auto">
+                        <div className="md:min-h-screen container mx-auto overflow-x-scroll">
                             <Outlet />
                         </div>
                     </FormProvider>
@@ -64,6 +70,9 @@ const DashboardLayout = () => {
                             <li><Link to='/dashboard'>Dashboard</Link></li>
                             <li><Link to='/dashboard/profile'>Profile</Link></li>
                             <li><Link to='/dashboard/create-donation-request'>Create Donation Request</Link></li>
+                            {
+                                role === 'admin' && <li><Link to='/dashboard/all-users'>All Users</Link></li>
+                            }
                         </div>
 
                         <div>

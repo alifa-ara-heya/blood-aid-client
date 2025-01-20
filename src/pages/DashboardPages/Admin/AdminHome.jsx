@@ -1,4 +1,4 @@
-import useAuth from "../../hooks/UseAuth";
+import useAuth from "../../../hooks/UseAuth";
 
 const AdminHome = () => {
     const { user } = useAuth();
