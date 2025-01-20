@@ -1,24 +1,35 @@
 import { useQuery } from "@tanstack/react-query";
 import Heading from "../../../components/Shared/Heading";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { FaCrown } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaCrown } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useState } from "react";
+
 
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
     const [filterStatus, setFilterStatus] = useState('');
+    const [page, setPage] = useState(1);
+    const [limit] = useState(6);
 
-    //getting all users
-    const { data: users = [], refetch } = useQuery({
-        queryKey: ['users', filterStatus],
+    //getting all users with pagination
+    const { data = {}, refetch } = useQuery({
+        queryKey: ['users', filterStatus, page],
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`/allUsers?filterStatus=${filterStatus}`);
+            const { data } = await axiosSecure.get(`/allUsers?filterStatus=${filterStatus}&page=${page}&limit=${limit}`);
             return data;
         }
     })
     // console.log(users.length);
+    const { users = [], totalPages } = data;
 
+    const handlePrevious = () => {
+        if (page > 1) setPage((prev) => prev - 1);
+    };
+
+    const handleNext = () => {
+        if (page < totalPages) setPage((prev) => prev + 1);
+    };
 
     const handleUserStatus = async (id, status) => {
         const updatedUserStatus = {
@@ -156,6 +167,36 @@ const AllUsers = () => {
                 </tbody>
 
             </table>
+
+
+            {/* pagination */}
+
+            {/* Pagination Controls */}
+            <div className="join flex justify-center items-center gap-2 mt-4">
+                <button
+                    className="join-item btn"
+                    onClick={handlePrevious}
+                    disabled={page === 1}
+                >
+                    <FaArrowLeft />
+                </button>
+                {[...Array(totalPages)].map((_, i) => (
+                    <button
+                        key={i}
+                        className={`join-item btn ${page === i + 1 ? "btn-active" : ""}`}
+                        onClick={() => setPage(i + 1)}
+                    >
+                        {i + 1}
+                    </button>
+                ))}
+                <button
+                    className="join-item btn"
+                    onClick={handleNext}
+                    disabled={page === totalPages}
+                >
+                    <FaArrowRight />
+                </button>
+            </div>
         </div >
     );
 };

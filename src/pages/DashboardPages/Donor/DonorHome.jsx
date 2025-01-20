@@ -16,7 +16,7 @@ const DonorHome = () => {
     // console.log(email);
 
     //getting donation requests
-    const { data: donationRequests = [], refetch } = useQuery({
+    const { data = {}, refetch } = useQuery({
         queryKey: ['donationRequests', email],
         enabled: !!email,
         queryFn: async () => {
@@ -24,6 +24,7 @@ const DonorHome = () => {
             return data;
         }
     })
+    const { donationRequests = [] } = data;
 
     //done status update
 

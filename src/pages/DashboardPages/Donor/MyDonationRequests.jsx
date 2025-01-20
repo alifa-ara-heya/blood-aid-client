@@ -4,25 +4,39 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Heading from "../../../components/Shared/Heading";
 import { FcViewDetails } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const MyDonationRequests = () => {
     const { user } = useAuth();
     const email = user?.email;
     const name = user?.displayName;
     const axiosSecure = useAxiosSecure();
-    const page = 1;
+    const [filterStatus, setFilterStatus] = useState('');
+    const [page, setPage] = useState(1);
+    const [limit] = useState(6);
 
     //getting all donation requests
-    const { data: donationRequests = [], refetch } = useQuery({
-        queryKey: ['donationRequests', email, page],
+    const { data = {}, refetch } = useQuery({
+        queryKey: ['donationRequests', email, page, filterStatus],
         enabled: !!email,
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`/donationRequests/${email}?page=${page}`);
+            const { data } = await axiosSecure.get(`/donationRequests/${email}?filterStatus=${filterStatus}&page=${page}&limit=${limit}`);
             return data;
         }
     });
+
+    const { donationRequests = [], totalPages } = data;
+
+    const handlePrevious = () => {
+        if (page > 1) setPage((prev) => prev - 1);
+    };
+
+    const handleNext = () => {
+        if (page < totalPages) setPage((prev) => prev + 1);
+    };
+
 
     //done status update
 
@@ -171,6 +185,19 @@ const MyDonationRequests = () => {
         <div>
             <Heading title={`Welcome, ${name}`} subtitle={'Thank you for being a hero and saving lives through your selfless donations. Your generosity brings hope and strength to those in need—thank you for making a difference!'} />
 
+            <select
+                className="select select-bordered w-1/4 bg-gray-100 my-6"
+                name="type"
+                id='type'
+                onChange={e => setFilterStatus(e.target.value)}
+                value={filterStatus}>
+                <option value=''>Filter By Request Status</option>
+                <option value="pending">Pending</option>
+                <option value="inprogress">Inprogress</option>
+                <option value="done">Done</option>
+                <option value="canceled">Canceled</option>
+            </select>
+
             {donationRequests.length > 0 && <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
@@ -260,6 +287,33 @@ const MyDonationRequests = () => {
                     </tbody>
                 </table>
             </div>}
+
+            {/* Pagination Controls */}
+            <div className="join flex justify-center items-center gap-2 mt-4">
+                <button
+                    className="join-item btn"
+                    onClick={handlePrevious}
+                    disabled={page === 1}
+                >
+                    <FaArrowLeft />
+                </button>
+                {[...Array(totalPages)].map((_, i) => (
+                    <button
+                        key={i}
+                        className={`join-item btn ${page === i + 1 ? "btn-active" : ""}`}
+                        onClick={() => setPage(i + 1)}
+                    >
+                        {i + 1}
+                    </button>
+                ))}
+                <button
+                    className="join-item btn"
+                    onClick={handleNext}
+                    disabled={page === totalPages}
+                >
+                    <FaArrowRight />
+                </button>
+            </div>
         </div>
 
 
