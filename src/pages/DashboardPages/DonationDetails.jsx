@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import Heading from "../../components/Shared/Heading";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import useAuth from "../../hooks/UseAuth";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner/LoadingSpinner";
 import bg from '../../assets/fabric_1.webp';
 import nameIcon from '../../assets/name-icon.png'
@@ -10,13 +9,12 @@ import mapIcon from '../../assets/map.png'
 import hospitalIcon from '../../assets/hospital.png'
 import scheduleIcon from '../../assets/schedule.png'
 import informationIcon from '../../assets/information-button.png'
-import Modal from "../../components/Modal/Modal";
+import DonateModal from "../../components/Modal/DonateModal";
 import { BiDonateBlood } from "react-icons/bi";
 
 
 const DonationDetails = () => {
     const { id } = useParams();
-    const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
     const { data: donationData = {}, isLoading: isRequestDataLoading } = useQuery(['donation-request', id], async () => {
@@ -106,7 +104,7 @@ const DonationDetails = () => {
                     </button>
                 }
             </div>
-            <Modal donationData={donationData} />
+            <DonateModal donationData={donationData} />
         </div>
     );
 };

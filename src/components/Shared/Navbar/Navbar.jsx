@@ -17,9 +17,10 @@ const Navbar = () => {
     const getNavLinkActiveClass = ({ isActive }) => `${isActive ? 'bg-rose-700 text-white hover:bg-rose-600 focus:bg-rose-700 focus:text-white' : ''}`
 
     const navOptions = <>
-        <li className=""><NavLink to='/' className={getNavLinkActiveClass}>Home</NavLink></li>
-        <li className=""><NavLink to='/blood-donation-requests' className={getNavLinkActiveClass}>Donation Requests</NavLink></li>
-        <li className=""><NavLink to='/blogs' className={getNavLinkActiveClass}>Blogs</NavLink></li>
+        <li><NavLink to='/' className={getNavLinkActiveClass}>Home</NavLink></li>
+        <li><NavLink to='/blood-donation-requests' className={getNavLinkActiveClass}>Donation Requests</NavLink></li>
+        <li><NavLink to='/blogs' className={getNavLinkActiveClass}>Blogs</NavLink></li>
+        <li><NavLink to='/funding' className={getNavLinkActiveClass}>Funding</NavLink></li>
         {
             !user && <li className=""><NavLink to='/login' className={getNavLinkActiveClass}>Log In</NavLink></li>
         }

@@ -22,6 +22,7 @@ import { element } from "prop-types";
 import AddBlog from "../pages/DashboardPages/Admin/AddBlog";
 import Blogs from "../pages/Public/PublicBlogPage";
 import BlogDetails from "../pages/Public/BlogDetails";
+import Funding from "../pages/Funding";
 
 const router = createBrowserRouter([
     {
@@ -51,6 +52,12 @@ const router = createBrowserRouter([
                     <DonationDetails />
                 </PrivateRoute>
             },
+            {
+                path: 'funding',
+                element: <PrivateRoute>
+                    <Funding />
+                </PrivateRoute>
+            }
         ]
     },
     {

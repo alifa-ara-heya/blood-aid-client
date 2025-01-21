@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 
 import PropTypes from 'prop-types';
 
-const Modal = ({ donationData }) => {
+const DonateModal = ({ donationData }) => {
 
     console.log(donationData.donationStatus);
     const { user } = useAuth();
@@ -92,8 +92,8 @@ const Modal = ({ donationData }) => {
     );
 };
 
-Modal.propTypes = {
+DonateModal.propTypes = {
     donationData: PropTypes.object.isRequired,
 };
 
-export default Modal;
+export default DonateModal;
