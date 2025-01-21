@@ -90,7 +90,7 @@ const AllUsers = () => {
             <Heading title={'All Users'} subtitle={'Discover and manage the complete list of users in the system, including donors, admins, and volunteers, all in one place.'} />
 
             <select
-                className="select select-bordered w-1/4 bg-gray-100 my-6"
+                className="select select-bordered bg-gray-100 md:w-1/4 w-1/3  m-6"
                 name="type"
                 id='type'
                 onChange={e => setFilterStatus(e.target.value)}
@@ -175,7 +175,7 @@ const AllUsers = () => {
             {/* pagination */}
 
             {/* Pagination Controls */}
-            <div className="join flex justify-center items-center gap-2 mt-4">
+            <div className="join flex justify-center items-center gap-2 my-8">
                 <button
                     className="join-item btn"
                     onClick={handlePrevious}

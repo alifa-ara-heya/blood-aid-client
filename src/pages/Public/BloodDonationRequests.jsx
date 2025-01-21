@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import Heading from "../components/Shared/Heading";
-import useAxiosPublic from "../hooks/useAxiosPublic";
-import bg from '../assets/fabric_1.webp';
+import Heading from "../../components/Shared/Heading";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import bg from '../../assets/fabric_1.webp';
 import { Link } from "react-router-dom";
 import { GiBlood } from "react-icons/gi";
 
 const BloodDonationRequests = () => {
     const axiosPublic = useAxiosPublic();
 
+    //getting only the pending requests
     const { data: donationRequests = [] } = useQuery({
         queryKey: ['donation-requests'],
         queryFn: async () => {

@@ -186,7 +186,7 @@ const MyDonationRequests = () => {
             <Heading title={`Welcome, ${name}`} subtitle={'Thank you for being a hero and saving lives through your selfless donations. Your generosity brings hope and strength to those in need—thank you for making a difference!'} />
 
             <select
-                className="select select-bordered w-1/4 bg-gray-100 my-6"
+                className="select select-bordered  bg-gray-100 md:w-1/4 w-1/3  m-6"
                 name="type"
                 id='type'
                 onChange={e => setFilterStatus(e.target.value)}

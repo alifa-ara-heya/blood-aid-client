@@ -186,7 +186,7 @@ const AllRequests = () => {
             <Heading title={'All Donation Requests'} subtitle={`Welcome, ${name}. Thank you for being a hero and saving lives through your selfless donations. Your generosity brings hope and strength to those in need—thank you for making a difference!`} />
 
             <select
-                className="select select-bordered w-1/4 bg-gray-100 my-6"
+                className="select select-bordered  bg-gray-100 md:w-1/4 w-1/3 m-6"
                 name="type"
                 id='type'
                 onChange={e => setFilterStatus(e.target.value)}
@@ -290,7 +290,7 @@ const AllRequests = () => {
             </div>}
 
             {/* Pagination Controls */}
-            <div className="join flex justify-center items-center gap-2 mt-4">
+            <div className="join flex justify-center items-center gap-2 my-8">
                 <button
                     className="join-item btn"
                     onClick={handlePrevious}

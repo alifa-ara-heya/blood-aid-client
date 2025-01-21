@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/Home";
+import Home from "../pages/Public/Home";
 import NotFound404 from "../pages/NotFound404";
 import Login from "../pages/LogIn";
 import SignUp from "../pages/SignUp";
@@ -12,11 +12,16 @@ import DonorHome from "../pages/DashboardPages/Donor/DonorHome";
 import UpdateDonation from "../pages/DashboardPages/UpdateDonation";
 import MyDonationRequests from "../pages/DashboardPages/Donor/MyDonationRequests";
 import DonationDetails from "../pages/DashboardPages/DonationDetails";
-import BloodDonationRequests from "../pages/BloodDonationRequests";
+import BloodDonationRequests from "../pages/Public/BloodDonationRequests";
 import DynamicHome from "../pages/DashboardPages/DynamicHome";
 import AdminRoute from "./AdminRoute";
 import AllUsers from "../pages/DashboardPages/Admin/AllUsers";
 import AllRequests from "../pages/DashboardPages/Admin/AllRequests";
+import ContentManagement from "../pages/DashboardPages/Admin/ContentManagement";
+import { element } from "prop-types";
+import AddBlog from "../pages/DashboardPages/Admin/AddBlog";
+import Blogs from "../pages/Public/PublicBlogPage";
+import BlogDetails from "../pages/Public/BlogDetails";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +36,14 @@ const router = createBrowserRouter([
             {
                 path: 'blood-donation-requests',
                 element: <BloodDonationRequests />
+            },
+            {
+                path: 'blogs',
+                element: <Blogs />
+            },
+            {
+                path: '/blog/:id',
+                element: <BlogDetails />
             },
             {
                 path: 'donation-details/:id',
@@ -92,7 +105,20 @@ const router = createBrowserRouter([
                 element: <AdminRoute>
                     <AllRequests />
                 </AdminRoute>
+            },
+            {
+                path: 'content-management',
+                element: <AdminRoute>
+                    <ContentManagement />
+                </AdminRoute>,
+            },
+            {
+                path: 'add-blog',
+                element: <AdminRoute>
+                    <AddBlog />
+                </AdminRoute>
             }
+
         ]
     }
 ]);

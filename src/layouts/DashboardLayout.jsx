@@ -68,6 +68,7 @@ const DashboardLayout = () => {
                                 role === 'admin' && (<>
                                     <li><Link to='/dashboard/all-users'>All Users</Link></li>
                                     <li><Link to='/dashboard/all-blood-donation-requests'>All Blood Donation Requests</Link></li>
+                                    <li><Link to='/dashboard/content-management'>Content Management</Link></li>
                                 </>
                                 )
                             }

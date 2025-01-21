@@ -19,6 +19,7 @@ const Navbar = () => {
     const navOptions = <>
         <li className=""><NavLink to='/' className={getNavLinkActiveClass}>Home</NavLink></li>
         <li className=""><NavLink to='/blood-donation-requests' className={getNavLinkActiveClass}>Donation Requests</NavLink></li>
+        <li className=""><NavLink to='/blogs' className={getNavLinkActiveClass}>Blogs</NavLink></li>
         {
             !user && <li className=""><NavLink to='/login' className={getNavLinkActiveClass}>Log In</NavLink></li>
         }
