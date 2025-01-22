@@ -126,8 +126,8 @@ const CreateDonationRequest = () => {
                 </Helmet>
             </div>
 
-            <div className="card mx-auto w-[90%] shadow-2xl xl:max-w-[960px] p-10 lg:my-16">
-                <form onSubmit={handleSubmit(onSubmit)} className="md:card-body">
+            <div className="card mx-auto w-[90%] shadow-2xl xl:max-w-[960px] p-10 lg:my-16 my-8">
+                <form onSubmit={handleSubmit(onSubmit)} className="md:card-body ">
 
                     {/* form-row-1 */}
                     <div className="flex flex-col md:gap-5 md:flex-row justify-center items-center">

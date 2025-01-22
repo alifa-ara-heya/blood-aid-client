@@ -70,7 +70,7 @@ const AddBlog = ({ placeholder }) => {
     }
 
     return (
-        <div>
+        <div className="w-11/12 mx-auto">
             <Heading title={'Add Blog'} subtitle={'Welcome to the Add Blog Page! Here, you can effortlessly oversee, organize, and update your blogs. Ensure your platform stays relevant, engaging, and up-to-date with just a few clicks.'} />
 
             <form onSubmit={handleSubmit(onSubmit)} className="md:card-body ">

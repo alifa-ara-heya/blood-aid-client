@@ -78,7 +78,7 @@ const ContentManagement = () => {
 
 
     return (
-        <div>
+        <div className="w-11/12 mx-auto">
             <Heading title="Content Management Page" subtitle={'Welcome to the Content Management Page! Here, you can effortlessly oversee, organize, and update your content library. Ensure your platform stays relevant, engaging, and up-to-date with just a few clicks.'} />
 
             <div className="flex justify-between my-6">
