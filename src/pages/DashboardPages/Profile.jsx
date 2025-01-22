@@ -136,15 +136,15 @@ const Profile = () => {
 
         <div >
             <Heading title={"Your Profile Overview"} subtitle={"Manage your personal details, update your information, and keep your profile up-to-date."} />
-            <div className="flex flex-col justify-center items-center md:min-h-screen p-10 lg:p-20 container mx-auto w-full relative" >
+            <div className="flex flex-col justify-center items-center md:min-h-screen p-10 lg:p-20 container mx-auto w-full relative my-7" >
                 <Helmet>
                     <title>Profile</title>
                 </Helmet>
                 {/* <h2>Welcome from profile page: {userData.name} </h2>
                 <h2>Role: {role}</h2> */}
-                <img src={userData.image} alt="" className="w-32 h-32 md:w-60 rounded-full md:h-60 object-cover absolute xl:top-2 md:top-9 left-1/2 transform -translate-x-1/2 -top-12  p-3 border-secondary border-2" />
+                <img src={userData.image} alt="" className="w-32 h-32 md:w-60 rounded-full md:h-60 object-cover absolute xl:top-2 md:top-9 left-1/2 transform -translate-x-1/2 -top-6  p-3 border-secondary border-2" />
                 <div className="card mx-auto w-[90%] shadow-2xl xl:max-w-[960px] p-10 xl:pt-28 lg:mb-16 xl:mt-12">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between mt-6">
                         <h2 className="text-lg font-bold mb-4">User Profile</h2> <div className="badge badge-primary badge-outline"><span className="text-yellow-500"><FaCrown /></span>{role}</div>
                     </div>
                     <form onSubmit={methods.handleSubmit(onSubmit)} className="md:card-body ">
@@ -269,7 +269,7 @@ const Profile = () => {
 
 
                         {/* Action Buttons */}
-                        <div className="flex justify-end space-x-4">
+                        <div className="flex justify-end space-x-4 my-6">
                             <button
                                 type="button"
                                 onClick={toggleEditMode}

@@ -4,12 +4,13 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import bg from '../../assets/fabric_1.webp';
 import { Link } from "react-router-dom";
 import { GiBlood } from "react-icons/gi";
+import LoadingSpinner from "../../components/Shared/LoadingSpinner/LoadingSpinner";
 
 const BloodDonationRequests = () => {
     const axiosPublic = useAxiosPublic();
 
     //getting only the pending requests
-    const { data: donationRequests = [] } = useQuery({
+    const { data: donationRequests = [], isLoading } = useQuery({
         queryKey: ['donation-requests'],
         queryFn: async () => {
             const { data } = await axiosPublic.get('/donationRequests');
@@ -19,8 +20,10 @@ const BloodDonationRequests = () => {
 
     console.log(donationRequests.length);
 
+    if (isLoading) return <LoadingSpinner />
+
     return (
-        <div className="xl:py-10">
+        <div className="py-10">
             <Heading title="Blood Donation Requests" subtitle="Explore the list of blood donation requests and find out how you can help save a life. Review the details and click 'Donate' to lend a helping hand. 🩸" />
 
             {/* Content Section */}

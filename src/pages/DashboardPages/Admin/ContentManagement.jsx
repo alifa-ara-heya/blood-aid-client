@@ -81,22 +81,24 @@ const ContentManagement = () => {
         <div>
             <Heading title="Content Management Page" subtitle={'Welcome to the Content Management Page! Here, you can effortlessly oversee, organize, and update your content library. Ensure your platform stays relevant, engaging, and up-to-date with just a few clicks.'} />
 
-            <div className="flex justify-end">
+            <div className="flex justify-between my-6">
                 <Link to='/dashboard/add-blog'>
                     <button className="btn btn-primary text-white">Add Blog <FaArrowRight /></button>
                 </Link>
+
+                {/* Filter Dropdown */}
+                <select
+                    className="select select-bordered mb-4"
+                    value={filterStatus}
+                    onChange={(e) => setFilterStatus(e.target.value)}
+                >
+                    <option value="">All</option>
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+                </select>
             </div>
 
-            {/* Filter Dropdown */}
-            <select
-                className="select select-bordered mb-4"
-                value={filterStatus}
-                onChange={(e) => setFilterStatus(e.target.value)}
-            >
-                <option value="">All</option>
-                <option value="draft">Draft</option>
-                <option value="published">Published</option>
-            </select>
+
 
             {/* Blog List */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-10">

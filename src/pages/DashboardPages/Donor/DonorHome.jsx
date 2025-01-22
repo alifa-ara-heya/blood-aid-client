@@ -173,7 +173,7 @@ const DonorHome = () => {
 
 
     return (
-        <div>
+        <div className="min-h-screen">
             {/* welcome section */}
             <Heading title={`Welcome, ${name}`} subtitle={'Thank you for being a hero and saving lives through your selfless donations. Your generosity brings hope and strength to those in need—thank you for making a difference!'} />
 

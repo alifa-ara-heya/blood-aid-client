@@ -182,7 +182,7 @@ const MyDonationRequests = () => {
 
 
     return (
-        <div>
+        <div className="container min-h-screen">
             <Heading title={`Welcome, ${name}`} subtitle={'Thank you for being a hero and saving lives through your selfless donations. Your generosity brings hope and strength to those in need—thank you for making a difference!'} />
 
             <select
@@ -290,7 +290,7 @@ const MyDonationRequests = () => {
             </div>}
 
             {/* Pagination Controls */}
-            <div className="join flex justify-center items-center gap-2 mt-4">
+            <div className="join flex justify-center items-center gap-2 my-4">
                 <button
                     className="join-item btn"
                     onClick={handlePrevious}
