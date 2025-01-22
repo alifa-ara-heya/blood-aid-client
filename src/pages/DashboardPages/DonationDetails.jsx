@@ -25,11 +25,11 @@ const DonationDetails = () => {
     if (isRequestDataLoading) return <LoadingSpinner />;
 
     return (
-        <div className="w-11/12 mx-auto">
+        <div className="w-11/12 mx-auto mt-8">
             <Heading title="Donation Details" subtitle="Explore the details of this donation request and learn how you can help save a life. Review the details and click 'Donate' to lend a helping hand." />
 
             {/* Content Section */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto my-8 xl:my-10">
                 {/* Recipient Information */}
                 <div className="bg-gray-100 p-4 card card-body shadow-md" style={{ backgroundImage: `url(${bg})` }}>
                     <img src={nameIcon} alt="" className="w-20 mb-3" />
@@ -95,14 +95,14 @@ const DonationDetails = () => {
 
             {/* Donate Button */}
             <div className="my-6 lg:my-12 flex justify-center">
-                {
-                    donationData.donationStatus === 'pending' && <button
-                        className="btn bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition duration-300"
-                        onClick={() => document.getElementById('my_modal_5').showModal()}
-                    >
-                        Donate Now <BiDonateBlood size={20} />
-                    </button>
-                }
+
+                <button
+                    className="btn bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition duration-300"
+                    onClick={() => document.getElementById('my_modal_5').showModal()}
+                >
+                    Donate Now <BiDonateBlood size={20} />
+                </button>
+
             </div>
             <DonateModal donationData={donationData} />
         </div>

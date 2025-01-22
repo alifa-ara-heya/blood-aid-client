@@ -7,18 +7,21 @@ import { Link } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import useRole from "../../../hooks/useRole";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner/LoadingSpinner";
 
 const AllRequests = () => {
     const { user } = useAuth();
     // const email = user?.email;
     const name = user?.displayName;
+    const [role, isLoading] = useRole();
     const axiosSecure = useAxiosSecure();
     const [filterStatus, setFilterStatus] = useState('');
     const [page, setPage] = useState(1);
     const [limit] = useState(6);
 
     //getting all donation requests
-    const { data = {}, refetch } = useQuery({
+    const { data = {}, refetch, isLoading: isRequestsLoading } = useQuery({
         queryKey: ['allDonationRequests', page, filterStatus],
         enabled: !!user,
         queryFn: async () => {
@@ -179,7 +182,7 @@ const AllRequests = () => {
             });
         }
     }
-
+    if (isLoading || isRequestsLoading) return <LoadingSpinner />
 
     return (
         <div>
@@ -214,8 +217,8 @@ const AllRequests = () => {
                             <th>Donation Status</th>
                             <th>Donor Name</th>
                             <th>Donor Email</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            {role === 'admin' && <><th>Edit</th>
+                                <th>Delete</th></>}
                             <th>View Details</th>
                             <th></th>
                             <th></th>
@@ -257,18 +260,18 @@ const AllRequests = () => {
                                         }</td>
 
 
-                                        <td className="hover:scale-95 duration-200 hover:transition-transform text-center text-yellow-500">
+                                        {role === 'admin' && (<><td className="hover:scale-95 duration-200 hover:transition-transform text-center text-yellow-500">
                                             <Link to={`/dashboard/update-donation-request/${request._id}`}>
                                                 <button>
                                                     <FaEdit />
                                                 </button>
                                             </Link>
                                         </td>
-                                        <td className="text-center text-primary hover:scale-95 duration-200 hover:transition-transform">
-                                            <button onClick={() => handleDeleteDonationRequest(request._id)}>
-                                                <FaTrashAlt />
-                                            </button>
-                                        </td>
+                                            <td className="text-center text-primary hover:scale-95 duration-200 hover:transition-transform">
+                                                <button onClick={() => handleDeleteDonationRequest(request._id)}>
+                                                    <FaTrashAlt />
+                                                </button>
+                                            </td></>)}
                                         <td className="hover:scale-95 duration-200 hover:transition-transform text-center text-yellow-500 text-xl">
                                             <Link to={`/donation-details/${request._id}`}>
                                                 <button>

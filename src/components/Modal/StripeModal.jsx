@@ -2,8 +2,10 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from "../CheckoutForm/CheckoutForm";
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+import PropTypes from 'prop-types';
 
-const StripeModal = () => {
+
+const StripeModal = ({ refetch }) => {
     return (
         <dialog id="my_stripe_modal" className="modal modal-bottom sm:modal-middle">
             <div className="modal-box">
@@ -12,7 +14,7 @@ const StripeModal = () => {
                 {/* checkout form */}
                 <Elements stripe={stripePromise}>
                     {/* checkout form component */}
-                    <CheckoutForm />
+                    <CheckoutForm refetch={refetch} />
                 </Elements>
 
 
@@ -26,5 +28,7 @@ const StripeModal = () => {
         </dialog>
     );
 };
-
+StripeModal.propTypes = {
+    refetch: PropTypes.func.isRequired, // Required function prop
+};
 export default StripeModal;

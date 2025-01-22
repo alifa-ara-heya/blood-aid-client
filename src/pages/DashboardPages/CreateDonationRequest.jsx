@@ -8,6 +8,7 @@ import LoadingSpinner from "../../components/Shared/LoadingSpinner/LoadingSpinne
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const CreateDonationRequest = () => {
     const { user } = useAuth();
@@ -26,7 +27,6 @@ const CreateDonationRequest = () => {
     const {
         register,
         handleSubmit,
-        watch,
         reset,
         formState: { errors },
     } = useForm({
@@ -38,6 +38,27 @@ const CreateDonationRequest = () => {
 
     const name = user?.displayName;
     const email = user?.email;
+
+    //getting user's status
+    const { data: status = '' } = useQuery({
+        queryKey: ['status'],
+        enabled: !!user,
+        queryFn: async () => {
+            const { data } = await axiosSecure.get(`/user-status/${email}`)
+            return data;
+        }
+    })
+    const userStatus = status.status
+
+    console.log(userStatus);
+
+    if (userStatus === 'blocked') {
+        Swal.fire({
+            title: "Error",
+            text: "You are blocked. You cannot create a donation request",
+            icon: "warning"
+        })
+    }
 
     const handleDistrictChange = (event) => {
         setSelectedDistrictId(event.target.value);
@@ -105,7 +126,7 @@ const CreateDonationRequest = () => {
                 </Helmet>
             </div>
 
-            <div className="card mx-auto w-[90%] shadow-2xl xl:max-w-[960px] p-10 lg:mb-16">
+            <div className="card mx-auto w-[90%] shadow-2xl xl:max-w-[960px] p-10 lg:my-16">
                 <form onSubmit={handleSubmit(onSubmit)} className="md:card-body">
 
                     {/* form-row-1 */}
@@ -309,7 +330,11 @@ const CreateDonationRequest = () => {
 
 
                     <div className="form-control mt-6">
-                        <button className="btn bg-gradient-to-r from-rose-700 to-rose-500 border-none text-white">Create Request</button>
+                        <button
+                            disabled={userStatus === 'blocked'}
+                            className={`btn  
+                            ${userStatus === 'blocked' ? 'bg-gray-300'
+                                    : 'bg-gradient-to-r from-rose-700 to-rose-500 border-none text-white '}`}>Create Request</button>
                     </div>
 
                 </form>

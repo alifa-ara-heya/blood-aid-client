@@ -20,6 +20,7 @@ const Navbar = () => {
         <li><NavLink to='/' className={getNavLinkActiveClass}>Home</NavLink></li>
         <li><NavLink to='/blood-donation-requests' className={getNavLinkActiveClass}>Donation Requests</NavLink></li>
         <li><NavLink to='/blogs' className={getNavLinkActiveClass}>Blogs</NavLink></li>
+        <li><NavLink to='/search-donors' className={getNavLinkActiveClass}>Search Donors</NavLink></li>
         <li><NavLink to='/funding' className={getNavLinkActiveClass}>Funding</NavLink></li>
         {
             !user && <li className=""><NavLink to='/login' className={getNavLinkActiveClass}>Log In</NavLink></li>

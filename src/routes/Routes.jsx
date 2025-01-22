@@ -8,7 +8,6 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Profile from "../pages/DashboardPages/Profile";
 import CreateDonationRequest from "../pages/DashboardPages/CreateDonationRequest";
-import DonorHome from "../pages/DashboardPages/Donor/DonorHome";
 import UpdateDonation from "../pages/DashboardPages/UpdateDonation";
 import MyDonationRequests from "../pages/DashboardPages/Donor/MyDonationRequests";
 import DonationDetails from "../pages/DashboardPages/DonationDetails";
@@ -18,11 +17,13 @@ import AdminRoute from "./AdminRoute";
 import AllUsers from "../pages/DashboardPages/Admin/AllUsers";
 import AllRequests from "../pages/DashboardPages/Admin/AllRequests";
 import ContentManagement from "../pages/DashboardPages/Admin/ContentManagement";
-import { element } from "prop-types";
+
 import AddBlog from "../pages/DashboardPages/Admin/AddBlog";
 import Blogs from "../pages/Public/PublicBlogPage";
 import BlogDetails from "../pages/Public/BlogDetails";
 import Funding from "../pages/Funding";
+import AdminOrVolunteerRoute from "./AdminAndVolunteerRoute";
+import SearchDonors from "../pages/Public/SearchDonors";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
                 element: <Blogs />
             },
             {
+                path: 'search-donors',
+                element: <SearchDonors />
+            },
+            {
                 path: '/blog/:id',
                 element: <BlogDetails />
             },
@@ -57,7 +62,7 @@ const router = createBrowserRouter([
                 element: <PrivateRoute>
                     <Funding />
                 </PrivateRoute>
-            }
+            },
         ]
     },
     {
@@ -109,9 +114,9 @@ const router = createBrowserRouter([
             },
             {
                 path: 'all-blood-donation-requests',
-                element: <AdminRoute>
+                element: <AdminOrVolunteerRoute>
                     <AllRequests />
-                </AdminRoute>
+                </AdminOrVolunteerRoute>
             },
             {
                 path: 'content-management',

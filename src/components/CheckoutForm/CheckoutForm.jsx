@@ -4,16 +4,15 @@
 
 
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-
+import PropTypes from 'prop-types';
 import './CheckoutForm.css'
 import { BiSolidDonateHeart } from 'react-icons/bi';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/UseAuth';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { useQuery } from '@tanstack/react-query';
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ refetch }) => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
@@ -29,7 +28,7 @@ const CheckoutForm = () => {
     setAmount(e.target.value);
   }
 
-  console.log(clientSecret);
+  // console.log(clientSecret);
 
   const getPaymentIntent = async () => {
     if (!amount || isNaN(amount)) {
@@ -68,15 +67,6 @@ const CheckoutForm = () => {
       });
     }
   }
-
-  const { data: funds = [], refetch } = useQuery({
-    queryKey: ['fundings'],
-    queryFn: async () => {
-      const { data } = await axiosSecure.get(`/fundings`);
-      return data;
-    },
-  });
-  console.log(funds.length);
 
 
   const handleSubmit = async (event) => {
@@ -147,7 +137,7 @@ const CheckoutForm = () => {
       const fundingDetails = {
         name: user?.displayName,
         email: user?.email,
-        amount,
+        amount: parseFloat(amount),
         date: new Date().toISOString(),
       };
 
@@ -155,6 +145,7 @@ const CheckoutForm = () => {
       // Optionally, you can log paymentIntent or update your UI.
       console.log("Payment Intent:", paymentIntent);
       setClientSecret(""); // Reset clientSecret after successful payment
+      refetch();
     }
   };
 
@@ -207,6 +198,10 @@ const CheckoutForm = () => {
       </form>
     </div>
   );
+};
+
+CheckoutForm.propTypes = {
+  refetch: PropTypes.func // Required function prop
 };
 
 export default CheckoutForm;
