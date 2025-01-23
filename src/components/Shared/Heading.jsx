@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-const Heading = ({ title, subtitle }) => {
+const Heading = ({ title, subtitle, color }) => {
     return (
-        <div className="text-center px-2" >
+        <div className={`text-center px-2 text-${color}`} data-aos='fade-in'>
             <h1 className='text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-primary'>
                 {title}
             </h1>

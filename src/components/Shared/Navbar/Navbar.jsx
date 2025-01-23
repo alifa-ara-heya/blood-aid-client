@@ -36,7 +36,7 @@ const Navbar = () => {
                 icon: 'success'
             })
         } catch (err) {
-            console.log('Logout failed', err);
+            // console.log('Logout failed', err);
             await Swal.fire({
                 title: 'Error',
                 text: err.message || "Failed to log out. Please try again.",

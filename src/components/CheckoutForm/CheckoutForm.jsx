@@ -114,7 +114,7 @@ const CheckoutForm = ({ refetch }) => {
     });
 
     if (error) {
-      console.log("Payment error:", error);
+      // console.log("Payment error:", error);
       Swal.fire({
         title: 'Error',
         text: error.message || 'Failed to process payment.',

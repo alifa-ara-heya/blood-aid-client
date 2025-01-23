@@ -6,7 +6,7 @@ import { BiSolidDonateBlood } from "react-icons/bi";
 
 const Footer = () => {
     return (
-        <footer className="bg-primary text-white py-8 md:py-10 lg:py-14">
+        <footer className="bg-[#C71A42] text-white py-8 md:py-10 lg:py-14">
             <div className="w-3/4  mx-auto">
                 <div className="flex flex-col md:flex-row gap-8 items-stretch">
                     {/* Logo Section */}

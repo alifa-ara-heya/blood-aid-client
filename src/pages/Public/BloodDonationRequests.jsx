@@ -18,7 +18,7 @@ const BloodDonationRequests = () => {
         }
     })
 
-    console.log(donationRequests.length);
+    // console.log(donationRequests.length);
 
     if (isLoading) return <LoadingSpinner />
 

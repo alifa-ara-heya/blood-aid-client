@@ -50,7 +50,7 @@ const CreateDonationRequest = () => {
     })
     const userStatus = status.status
 
-    console.log(userStatus);
+    // console.log(userStatus);
 
     if (userStatus === 'blocked') {
         Swal.fire({
@@ -94,7 +94,7 @@ const CreateDonationRequest = () => {
             donationStatus: 'pending',
             timeStamp: new Date()
         }
-        console.log(donationRequestData);
+        // console.log(donationRequestData);
 
         try {
             const response = await axiosSecure.post('/donationRequests', donationRequestData);

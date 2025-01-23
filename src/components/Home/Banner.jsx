@@ -14,7 +14,7 @@ const Banner = () => {
             {/* Banner Content */}
             <div className="py-8 xl:py-20 flex flex-col items-start h-full px-10 xl:p-20">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                    Welcome to Blood Aid
+                    Welcome to <span className='text-rose-700'>Blood Aid</span>
                 </h1>
                 <p className="text-lg md:text-xl max-w-2xl mb-6">
                     Your donation can save lives. Join us in making a difference by connecting donors and recipients seamlessly.
@@ -33,7 +33,7 @@ const Banner = () => {
                 </div>
             </div>
 
-            <div className='w-1/2 xl:w-1/4'>
+            <div className='w-1/2 xl:w-1/4' data-aos='zoom-in'>
                 <img src={bannerBg} alt="" />
             </div>
         </div>

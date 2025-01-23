@@ -26,7 +26,7 @@ const Blogs = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-10 md:my-20 container mx-auto" >
                 {blogs.map((blog) => (
-                    <div key={blog._id} className="card  shadow-md p-4 card-body" style={{ backgroundImage: `url(${bg})` }}>
+                    <div key={blog._id} className="card  shadow-md p-4 card-body" style={{ backgroundImage: `url(${bg})` }} data-aos='fade-up'>
                         <img src={blog.image} alt="" className="h-56 object-cover" />
                         <h2 className="text-lg font-bold">{blog.title}</h2>
                         <p>{blog.content.replace(/<\/?[^>]+(>|$)/g, "").slice(0, 100)}...</p>

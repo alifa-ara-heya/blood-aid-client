@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
             if (currentUser) {
                 const userInfo = { email: currentUser.email }
 
-                console.log(userInfo); // Example: { email: "user@example.com" }
+                // console.log(userInfo); // Example: { email: "user@example.com" }
 
                 // get token and store in client side
 
@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
                     .then(res => {
                         if (res.data.token) {
                             localStorage.setItem('access-token', res.data.token)
-                            console.log('Token saved to local storage', res.data.token);
+                            // console.log('Token saved to local storage', res.data.token);
                             setLoading(false)
                         }
                     })

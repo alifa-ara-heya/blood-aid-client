@@ -48,7 +48,7 @@ const AllUsers = () => {
             }
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             Swal.fire({
                 title: "Error",
                 text: `Could not ${status === 'blocked' ? 'block' : 'unblock'} the user. Please try again later.`,
@@ -76,7 +76,7 @@ const AllUsers = () => {
             }
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             Swal.fire({
                 title: "Error",
                 text: `Could not make the user ${role === 'admin' ? 'admin' : 'volunteer'}. Please try again later.`,

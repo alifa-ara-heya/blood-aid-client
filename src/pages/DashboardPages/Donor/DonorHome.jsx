@@ -65,7 +65,7 @@ const DonorHome = () => {
             }
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             Swal.fire({
                 title: "Error",
                 text: "Could not update the donation request. Please try again later.",
@@ -113,7 +113,7 @@ const DonorHome = () => {
             }
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             Swal.fire({
                 title: "Error",
                 text: "Could not update the donation request. Please try again later.",

@@ -16,7 +16,7 @@ const Funding = () => {
             return data;
         },
     });
-    console.log(funds.length);
+    // console.log(funds.length);
 
     return (
         <div className='w-11/12 mx-auto mt-5'>

@@ -25,7 +25,7 @@ const UpdateDonation = () => {
             return data;
         }
     });
-    console.log(donationData.recipientName);
+    // console.log(donationData.recipientName);
 
     const [selectedDistrictId, setSelectedDistrictId] = useState(''); // Initialize with default
 
@@ -84,11 +84,11 @@ const UpdateDonation = () => {
             message: data.message,
         }
 
-        console.log(updatedData);
+        // console.log(updatedData);
 
         try {
             const { data: updatedUserData } = await axiosSecure.put(`/update-donation-request/${id}`, updatedData);
-            console.log(updatedUserData);
+            // console.log(updatedUserData);
             if (updatedUserData.modifiedCount > 0) {
                 Swal.fire({
                     title: "Success",

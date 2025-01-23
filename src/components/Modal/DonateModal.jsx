@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const DonateModal = ({ donationData }) => {
 
-    console.log(donationData.donationStatus);
+    // console.log(donationData.donationStatus);
     const { user } = useAuth();
     const name = user?.displayName;
     const email = user?.email;
@@ -35,7 +35,7 @@ const DonateModal = ({ donationData }) => {
             }
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             Swal.fire({
                 title: "Error",
                 text: "Could not update the donation request. Please try again later.",

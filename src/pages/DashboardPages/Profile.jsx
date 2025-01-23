@@ -106,11 +106,11 @@ const Profile = () => {
             upazila: selectedUpazilaName,
         }
 
-        console.log(updatedData);
+        // console.log(updatedData);
 
         try {
             const { data: updatedUserData } = await axiosSecure.put(`updateProfile/${user?.email}`, updatedData);
-            console.log(updatedUserData);
+            // console.log(updatedUserData);
             if (updatedUserData.modifiedCount > 0) {
                 Swal.fire({
                     title: "Success",

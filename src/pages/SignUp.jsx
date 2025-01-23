@@ -69,7 +69,7 @@ const SignUp = () => {
 
 
     const onSubmit = async (data) => {
-        console.log(data);
+        // console.log(data);
 
         try {
             //1. prepare formData for imageBB
@@ -84,7 +84,7 @@ const SignUp = () => {
             //3. user registration
             const result = await createUser(data.email, data.password)
             const user = result.user;
-            console.log('Sign Up User', user);
+            // console.log('Sign Up User', user);
 
             //4. save userName and profile photo
             await updateUserProfile(data.name, imageURL)
@@ -110,7 +110,7 @@ const SignUp = () => {
 
             // 5. save user info to the database
             const response = await axiosPublic.post('/users', userInfo)
-            console.log(response);
+            // console.log(response);
             // show success message
             if (response.data.insertedId) {
                 await Swal.fire({
@@ -124,7 +124,7 @@ const SignUp = () => {
 
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             await Swal.fire({
                 title: "Error",
                 text: error.message || "Failed to register. Please try again.",
