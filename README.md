@@ -42,7 +42,7 @@ Blood Aid is a user-friendly platform designed to connect blood donors with reci
 7. **Responsive Design**:
    - Fully responsive and mobile-friendly.
 8. **Pagination & Filtering**:
-   - Pagination implemented for user lists, donation requests, and blogs.
+   - Pagination implemented for user lists, donation requests.
 9. **Payment Integration**:
    - Integrated Stripe for secure donations and funding tracking.
 10. **Notifications**:
