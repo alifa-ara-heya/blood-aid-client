@@ -1,16 +1,21 @@
 
 import quoteImg from '../../assets/quote.png'
-import './reviews.css'
+
 // import { Rating } from 'react-simple-star-rating'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
+
 import 'swiper/css/navigation';
+
 import { Navigation } from 'swiper/modules';
+import './reviewStyles.css'
+
 import { useEffect, useState } from "react";
 import Heading from '../Shared/Heading';
 import StarRatings from 'react-star-ratings';
+
 
 const Reviews = () => {
 
@@ -25,7 +30,7 @@ const Reviews = () => {
 
     }, [])
 
-    console.log(reviews);
+    // console.log(reviews);
     return (
         <section className="md:my-20 my-10 max-w-[1920px] mx-auto">
             <Heading title={'Reviews'} subtitle={'What people say about us'} />

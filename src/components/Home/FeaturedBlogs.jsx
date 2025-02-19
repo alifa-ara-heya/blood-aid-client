@@ -38,7 +38,9 @@ const FeaturedBlogs = () => {
                 </div>
 
                 <div className="text-center">
-                    <button className="btn bg-red-700 text-white">Read All Blogs</button>
+                    <Link to='/blogs'>
+                        <button className="btn bg-red-700 text-white">Read All Blogs</button>
+                    </Link>
                 </div>
             </div>
         </div>

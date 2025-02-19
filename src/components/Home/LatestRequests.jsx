@@ -23,7 +23,7 @@ const LatestRequests = () => {
     if (isLoading) return <LoadingSpinner />
 
     return (
-        <div className="">
+        <div className="w-11/12 mx-auto">
             <Heading title="Blood Donation Requests" subtitle="Explore the list of blood donation requests and find out how you can help save a life. Review the details and click 'Donate' to lend a helping hand. 🩸" />
 
             {/* Content Section */}
@@ -68,7 +68,11 @@ const LatestRequests = () => {
                 }
 
             </div>
-
+            <div className="text-center mb-10">
+                <Link to='/blood-donation-requests'>
+                    <button className="btn bg-red-700 text-white">See All Requests</button>
+                </Link>
+            </div>
         </div>
     );
 };
