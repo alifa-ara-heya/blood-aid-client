@@ -26,27 +26,27 @@ const AboutUs = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* Mission Card */}
-                    <div className="bg-white dark:bg-cyan-900 rounded-lg shadow-md p-6">
-                        <h3 className="text-2xl font-bold text-blue-600 mb-4">Our Mission</h3>
-                        <p className='text-gray-600'>
+                    <div className="bg-white dark:bg-cyan-700 rounded-lg shadow-md p-6 dark:text-white">
+                        <h3 className="text-2xl font-bold text-blue-600 dark:text-white mb-4">Our Mission</h3>
+                        <p className='text-gray-600 dark:text-white'>
                             To ensure a reliable, accessible blood donation network, bringing
                             hope and saving lives through efficient technology.
                         </p>
                     </div>
 
                     {/* Vision Card */}
-                    <div className="bg-white rounded-lg shadow-md p-6">
-                        <h3 className="text-2xl font-bold text-green-600 mb-4">Our Vision</h3>
-                        <p className='text-gray-600'>
+                    <div className="bg-white rounded-lg shadow-md p-6 dark:bg-cyan-700 ">
+                        <h3 className="text-2xl font-bold text-green-600 mb-4 dark:text-white">Our Vision</h3>
+                        <p className='text-gray-600 dark:text-white'>
                             A world where no life is lost due to a shortage of blood. We strive
                             for a healthier, safer future for everyone.
                         </p>
                     </div>
 
                     {/* Values Card */}
-                    <div className="bg-white rounded-lg shadow-md p-6">
-                        <h3 className="text-2xl font-bold text-red-600 mb-4">Our Values</h3>
-                        <p className='text-gray-600'>
+                    <div className="bg-white rounded-lg shadow-md p-6 dark:bg-cyan-700 ">
+                        <h3 className="text-2xl font-bold text-red-600 mb-4 dark:text-white">Our Values</h3>
+                        <p className='text-gray-600 dark:text-white'>
                             Compassion, integrity, and innovation drive us to support
                             communities and create a life-saving impact.
                         </p>

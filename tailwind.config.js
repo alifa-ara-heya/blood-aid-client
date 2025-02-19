@@ -14,7 +14,7 @@ export default {
     },
   },
   plugins: [daisyui,],
-  darkMode: 'class',
+
   daisyui: {
     themes: [
       {
@@ -25,8 +25,17 @@ export default {
           secondary: "#FCE0A2",
         },
       },
+      /*  {
+         dark: {
+           // eslint-disable-next-line no-undef
+           ...require("daisyui/src/theming/themes")["dark"],
+           primary: "##1C7BFE",
+           secondary: "#FCE0A2",
+         },
+       }, */
       'light', 'dark'
     ],
   },
+  darkMode: ['selector', '[data-theme="dark"]']
 }
 
