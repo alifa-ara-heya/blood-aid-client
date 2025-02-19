@@ -25,7 +25,7 @@ const Reviews = () => {
 
     }, [])
 
-    // console.log(reviews);
+    console.log(reviews);
     return (
         <section className="md:my-20 my-10 max-w-[1920px] mx-auto">
             <Heading title={'Reviews'} subtitle={'What people say about us'} />

@@ -17,8 +17,8 @@ const ContactUs = () => {
                 </p>
             </div>
 
-            <div className="max-w-4xl mx-auto backdrop-blur-md rounded-lg shadow-lg p-8 text-gray-800 flex flex-col md:flex-row items-center gap-8 z-10 relative">
-                <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="max-w-4xl mx-auto backdrop-blur-md rounded-lg shadow-lg p-8 text-gray-800 flex flex-col md:flex-row  gap-8 z-10 relative">
+                <form className="grid md:grid-cols-2 gap-6">
                     {/* Name Field */}
                     <div className="form-control w-full">
                         <label className="label ">
@@ -73,7 +73,7 @@ const ContactUs = () => {
 
 
 
-                <div className='w-1/3'>
+                <div className='w-1/3 mx-auto'>
                     <Lottie animationData={contactLottie} loop={true} />
 
                 </div>
