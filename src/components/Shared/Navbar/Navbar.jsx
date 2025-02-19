@@ -14,7 +14,7 @@ const Navbar = () => {
     const name = user?.displayName;
     const image = user?.photoURL;
 
-    const getNavLinkActiveClass = ({ isActive }) => `${isActive ? 'bg-rose-700 text-white hover:bg-rose-600 focus:bg-rose-700 focus:text-white' : ''}`
+    const getNavLinkActiveClass = ({ isActive }) => `${isActive ? 'bg-rose-600 text-white hover:bg-rose-600 focus:bg-rose-700 focus:text-white' : ''}`
 
     const navOptions = <>
         <li><NavLink to='/' className={getNavLinkActiveClass}>Home</NavLink></li>
@@ -46,7 +46,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className="navbar bg-rose-700">
+        <div className="navbar bg-rose-700 sticky top-0 z-10">
             <div className="navbar-start">
                 <div className="drawer lg:hidden z-50">
                     <input id="my-drawer" type="checkbox" className="drawer-toggle" />
