@@ -22,12 +22,19 @@ const FeaturedBlogs = () => {
             <div className="mt-6">
                 <Heading title={'Featured Blogs'} subtitle={'Welcome. Read and Be Inspired.'} />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-10 container mx-auto" >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-10 container mx-auto">
                     {blogs.map((blog) => (
-                        <div key={blog._id} className="card  shadow-md p-4 card-body" style={{ backgroundImage: `url(${bg})` }} data-aos='fade-up'>
-                            <img src={blog.image} alt="" className="h-56 object-cover" />
-                            <h2 className="text-lg font-bold">{blog.title}</h2>
-                            <p>{blog.content.replace(/<\/?[^>]+(>|$)/g, "").slice(0, 150)}...</p>
+                        <div
+                            key={blog._id}
+                            className="card shadow-md p-4 card-body bg-gray-200  dark:bg-none dark:bg-gray-800 transition-all duration-500"
+                            // style={{ backgroundImage: `url(${bg})` }}
+                            data-aos='fade-up'
+                        >
+                            <img src={blog.image} alt="" className="h-56 object-cover rounded-lg" />
+                            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-200">{blog.title}</h2>
+                            <p className="text-gray-700 dark:text-gray-300">
+                                {blog.content.replace(/<\/?[^>]+(>|$)/g, "").slice(0, 150)}...
+                            </p>
                             <div className="mt-4">
                                 <Link to={`/blog/${blog._id}`} className="btn btn-primary btn-sm">
                                     Read More
