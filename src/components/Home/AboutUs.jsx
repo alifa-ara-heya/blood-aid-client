@@ -26,7 +26,7 @@ const AboutUs = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* Mission Card */}
-                    <div className="bg-white rounded-lg shadow-md p-6">
+                    <div className="bg-white dark:bg-cyan-900 rounded-lg shadow-md p-6">
                         <h3 className="text-2xl font-bold text-blue-600 mb-4">Our Mission</h3>
                         <p className='text-gray-600'>
                             To ensure a reliable, accessible blood donation network, bringing
