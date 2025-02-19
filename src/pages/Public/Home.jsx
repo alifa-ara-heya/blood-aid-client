@@ -6,11 +6,12 @@ import LatestRequests from "../../components/Home/LatestRequests";
 import Newsletter from "../../components/Home/Newsletter";
 import OurImpact from "../../components/Home/OurImpact";
 import Reviews from "../../components/Home/Reviews";
+import ToggleTheme from "../../components/Home/ToggleTheme";
 
 const Home = () => {
     return (
         <div>
-
+            <ToggleTheme />
             <Banner />
             <AboutUs />
             <OurImpact />
