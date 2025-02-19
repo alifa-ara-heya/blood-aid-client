@@ -14,6 +14,7 @@ export default {
     },
   },
   plugins: [daisyui,],
+  darkMode: 'class',
   daisyui: {
     themes: [
       {
@@ -24,6 +25,7 @@ export default {
           secondary: "#FCE0A2",
         },
       },
+      'light', 'dark'
     ],
   },
 }

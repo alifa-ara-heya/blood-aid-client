@@ -3,7 +3,7 @@ import bannerBg from '../../assets/Blood donation-bro.png'
 import { Link } from 'react-router-dom';
 const Banner = () => {
     return (
-        <div className="w-11/12 max-w-[1440px] mx-auto h-[300px] flex  flex-col md:flex-row items-center justify-around"
+        <div className="dark w-11/12 max-w-[1440px] mx-auto h-[300px] flex  flex-col md:flex-row items-center justify-around bg-white dark:bg-black text-black dark:text-white"
             style={{
                 // backgroundImage: `url(${bannerBg})`
             }}>
